@@ -50,11 +50,8 @@ const blocks = [
   new Block(1000, 500, 50, 50, 0, 0),
 ]
 const backgrounds = [
-  new BackBlocks(450, 550, 51, 50, 2, 1, 11),
-  // new BackBlocks(400, 600, 50, 50, 2, 1, 14),
-  
+  new BackBlocks(450, 550, 51, 50, 2, 1, 11),  
   new Background(1000, 550, 50, 51, 3, 2),
-  // new Background(400, 550, 50, 50, 0, 3),
 ]
 const answers = [
   new AnimBlock(600, 300, 51, 51, 0, 0, 4, 4),
