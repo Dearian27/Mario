@@ -64,7 +64,7 @@ class Mario {
     }
     if(controls.jump && this.isGrounded) {
       this.velocity.y = -11;
-      this.isGrounded = false;
+      // this.isGrounded = false;
     }
         
     this.velocity.y += 0.3; // gravity

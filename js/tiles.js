@@ -1,2 +1,2 @@
 const tiles = new Image();
-tiles.src = '../assets/blocks.png';
+tiles.src = '../assets/blocks.svg';
