@@ -39,16 +39,20 @@ class Mario {
       }
   }
   animation() {
-    if(this.velocity.x !== 0) {
-      this.checkAnimation('running', 1);
-      this.frameAnim(3, 7)
-    } else if(this.velocity.x === 0 && this.isGrounded) {
-      this.checkAnimation('idle', 0);
-      this.frameAnim(2, 30)
+    if(!this.isGrounded) {
+      this.checkAnimation('jump', 2);
+      this.frameAnim(1)
+    } else {
+      if(this.velocity.x !== 0) {
+        this.checkAnimation('running', 1);
+        this.frameAnim(3, 7)
+      } else if(this.velocity.x === 0) {
+        this.checkAnimation('idle', 0);
+        this.frameAnim(2, 30)
+      }
     }
   }
   update() {
-    
     if(controls.right) {
       this.velocity.x = 3;
       this.direction = 'right';
@@ -57,9 +61,12 @@ class Mario {
       this.velocity.x = -3;
       this.direction = 'left';
     }
-    
-    // this.velocity.y += 0.5; // gravity
-    
+    if(controls.jump && this.isGrounded) {
+      this.velocity.y = -11;
+      this.isGrounded = false;
+    }
+        
+    this.velocity.y += 0.3; // gravity
     this.y += this.velocity.y;
     this.x += this.velocity.x;
     this.animation();
@@ -69,17 +76,18 @@ class Mario {
   
   draw(ctx) {
     let offset = 0;
+    ctx.save();
     ctx.translate(this.x, this.y);
     
-    if(this.direction == 'left') {
-      //flip
+    if(this.direction == 'left') { //flip
       ctx.scale(-1, 1);
-      offset = -this.width;
     }
-    ctx.drawImage(this.assets, this.frame * this.assetsSize, this.row * this.assetsSize, this.assetsSize, this.assetsSize, offset, 0, this.width, this.height);
-    
-  
+    ctx.drawImage(this.assets, this.frame * this.assetsSize, this.row * this.assetsSize, this.assetsSize, this.assetsSize, offset  - this.width/2, 0 - this.height/2, this.width, this.height);
+
+    ctx.globalAlpha = 0.4;
+    ctx.fillStyle = 'green'
+    ctx.fillRect(-this.width/2, -this.height/2, this.width, this.height);
+    ctx.restore();
     ctx.scale(1, 1);
   }
-
 }
