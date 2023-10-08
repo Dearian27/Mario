@@ -20,12 +20,31 @@ window.addEventListener('resize', resizeCanvas);
 
 const player = new Mario(100, 100, 45*1.5, 40*1.5, marioSprites)
 const blocks = [
-  new Block(300, 400, 50, 400),
-  new Block(100, 100, 50, 50),
+  new Block(600, 500, 50, 50),
+  new Block(650, 500, 50, 50),
+  new Block(700, 500, 50, 50),
+  new Block(750, 500, 50, 50),
+  new Block(800, 500, 50, 50),
+  new Block(850, 500, 50, 50),
+  new Block(900, 500, 50, 50),
+  new Block(950, 500, 50, 50),
+
+ 
+  
+  new Block(1000, 500, 50, 50, 1, 1),
+  new Block(1050, 550, 50, 50, 1, 1),
+  new Block(950, 550, 50, 50, 1),
 ]
 const backgrounds = [
-  new Background(300, 500, 50, 50),
-  new Background(500, 500, 50, 100)
+  new Background(600, 550, 50, 50, 1),
+  new Background(650, 550, 50, 50, 1),
+  new Background(700, 550, 50, 50, 1),
+  new Background(750, 550, 50, 50, 1),
+  new Background(800, 550, 50, 50, 1),
+  new Background(850, 550, 50, 50, 1),
+  new Background(900, 550, 50, 50, 1),
+  new Background(950, 550, 50, 50, 1),
+  new Background(1000, 550, 50, 50, 1),
 ]
 
 const text = new Sentence('He ___ playing football now!', 0, 50);
@@ -68,11 +87,11 @@ const checkCollision = () => {
         }
       } else {
         // Гравець зіткнувся з верхньою або нижньою стінкою блоку
-        if (player.y < block.y) {
+        if (player.y < block.y && player.velocity.y > 0) {
           player.velocity.y = 0;
           player.y = blockTop - player.height / 2;
           isGrounded = true;
-        } else {
+        } else if(player.velocity.y > 0) {
           player.velocity.y = 0;
           player.y = blockBottom + player.height / 2;
         }
@@ -85,7 +104,6 @@ const checkCollision = () => {
 }
 
 const grid = new Grid();
-grid.draw(ctx);
 
 const animation = () => {
   canvas.height = canvas.height;
@@ -97,7 +115,6 @@ const animation = () => {
   // const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
   // gradient.addColorStop(0, '#FFD700');  // Світлий жовтий
   // gradient.addColorStop(1, '#FF6347');  // Світло-помаранчевий
-
   // ctx.fillStyle = gradient;
   // ctx.fillRect(0, 0, canvas.width, canvas.height);
 
