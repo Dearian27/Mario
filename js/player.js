@@ -67,7 +67,7 @@ class Mario {
       // this.isGrounded = false;
     }
         
-    this.velocity.y += 0.3; // gravity
+    this.velocity.y = (this.velocity.y * 10 + 3)/ 10; // gravity
     this.y += this.velocity.y;
     this.x += this.velocity.x;
     this.animation();
@@ -76,14 +76,13 @@ class Mario {
   }
   
   draw(ctx) {
-    let offset = 0;
     ctx.save();
     ctx.translate(this.x, this.y);
     
     if(this.direction == 'left') { //flip
       ctx.scale(-1, 1);
     }
-    ctx.drawImage(this.assets, this.frame * this.assetsSize, this.row * this.assetsSize, this.assetsSize, this.assetsSize, offset  - this.width/2, 0 - this.height/2, this.width, this.height);
+    ctx.drawImage(this.assets, this.frame * this.assetsSize, this.row * this.assetsSize, this.assetsSize, this.assetsSize, -this.width/2, -this.height/2, this.width, this.height);
 
     ctx.globalAlpha = 0.4;
     ctx.fillStyle = 'green';

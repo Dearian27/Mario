@@ -10,7 +10,7 @@ class Block {
 
   draw(ctx) {
     ctx.beginPath();
-    ctx.drawImage(tiles, 16 * this.xOffset, 16 * this.yOffset, 16, 16, this.x - this.width/2, this.y - this.height/2, this.width, this.height);
+    ctx.drawImage(tiles, tileSize * this.xOffset, tileSize * this.yOffset, tileSize, tileSize, this.x - this.width/2, this.y - this.height/2, this.width, this.height);
     // ctx.drawImage(tiles, this.x - this.width/2, this.y - this.height/2, this.width, this.height*2);
     // ctx.drawImage(tiles, 0, 0, this.width, this.height, this.x - (this.width/2), this.y - (this.height/2), this.width, this.height);
 

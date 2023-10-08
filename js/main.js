@@ -20,18 +20,20 @@ window.addEventListener('resize', resizeCanvas);
 
 const player = new Mario(730, 400, 45*1.5, 40*1.5, marioSprites)
 const blocks = [
-  new AnimBlock(500, 300, 50, 50, 0, 0, 4, 5),
-  new AnimBlock(550, 300, 50, 50, 0, 0, 4, 5),
-  new AnimBlock(650, 300, 50, 50, 0, 0, 4, 5),
-  new AnimBlock(700, 300, 50, 50, 0, 0, 4, 5),
-  new AnimBlock(750, 300, 50, 50, 0, 0, 4, 5),
-  new AnimBlock(850, 300, 50, 50, 0, 0, 4, 5),
-  new AnimBlock(900, 300, 50, 50, 0, 0, 4, 5),
+  new AnimBlock(500, 300, 51, 51, 0, 0, 4, 5),
+  new AnimBlock(550, 300, 51, 51, 0, 0, 4, 5),
+  new AnimBlock(650, 300, 51, 51, 0, 0, 4, 5),
+  new AnimBlock(700, 300, 51, 51, 0, 0, 4, 5),
+  new AnimBlock(750, 300, 51, 51, 0, 0, 4, 5),
+  new AnimBlock(850, 300, 51, 51, 0, 0, 4, 5),
+  new AnimBlock(900, 300, 51, 51, 0, 0, 4, 5),
 
 
-  new Block(300, 550, 50, 50, 0, 1),
-  new Block(350, 550, 50, 50, 0, 0),
-  new Block(400, 500, 50, 50, 0, 1),
+  
+  new Block(400, 550, 50, 50, 2, 2),
+
+  new Block(1050, 500, 50, 51, 3, 3),
+  new Block(400, 500, 50, 50, 0, 0),
   new Block(450, 500, 50, 50),
   new Block(500, 500, 50, 50),
   new Block(550, 500, 50, 50),
@@ -44,26 +46,19 @@ const blocks = [
   new Block(900, 500, 50, 50),
   new Block(950, 500, 50, 50),
 
-  new Block(1000, 500, 50, 50, 1, 1),
-  new Block(1050, 550, 50, 50, 0, 0),
-  new Block(1100, 550, 50, 50, 1, 1),
+  new Block(350, 500, 50, 50, 2, 3),
+  new Block(1000, 500, 50, 50, 0, 0),
 ]
 const backgrounds = [
-  new Background(600, 550, 50, 50, 1),
-  new Background(650, 550, 50, 50, 1),
-  new Background(700, 550, 50, 50, 1),
-  new Background(750, 550, 50, 50, 1),
-  new Background(800, 550, 50, 50, 1),
-  new Background(850, 550, 50, 50, 1),
-  new Background(900, 550, 50, 50, 1),
-  new Background(950, 550, 50, 50, 1),
-  new Background(1000, 550, 50, 50, 1, 3),
+  new BackBlocks(450, 550, 51, 50, 2, 1, 11),
+  // new BackBlocks(400, 600, 50, 50, 2, 1, 14),
   
-  new Background(400, 550, 50, 50, 0, 3),
+  new Background(1000, 550, 50, 51, 3, 2),
+  // new Background(400, 550, 50, 50, 0, 3),
 ]
 const answers = [
-  new AnimBlock(600, 300, 50, 50, 0, 0, 4, 4),
-  new AnimBlock(800, 300, 50, 50, 0, 0, 4, 4),
+  new AnimBlock(600, 300, 51, 51, 0, 0, 4, 4),
+  new AnimBlock(800, 300, 51, 51, 0, 0, 4, 4),
 ]
 
 const text = new Sentence('He ___ playing football now!', 0, 50);
@@ -118,24 +113,23 @@ const grid = new Grid();
 
 const animation = () => {
   canvas.height = canvas.height;
-
-  // ctx.save();
-  // ctx.translate( player.x - canvas.width * 0.5, player.y - canvas.height * 0.5);
   
-  
-  // const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-  // gradient.addColorStop(0, '#FFD700');  // Світлий жовтий
-  // gradient.addColorStop(1, '#FF6347');  // Світло-помаранчевий
-  // ctx.fillStyle = gradient;
-  // ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-
   const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
   gradient.addColorStop(0, '#4FC3F7');  // Світло-синій
   gradient.addColorStop(1, '#1976D2');  // Темно-синій
   ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+  ctx.save();
+  ctx.translate( -Math.round(player.x) + canvas.width/2, -Math.round(player.y) + canvas.height/2);
+
+  // const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+  // gradient.addColorStop(0, '#FFD700');  // Світлий жовтий
+  // gradient.addColorStop(1, '#FF6347');  // Світло-помаранчевий
+  // ctx.fillStyle = gradient;
+  // ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  
   checkCollision();
   blocks.forEach(block => {
     block.draw(ctx);
@@ -145,21 +139,23 @@ const animation = () => {
   });
   player.update();
   player.draw(ctx);
-
-  // ctx.restore();
-  text.draw(ctx);
-  // grid.draw(ctx);
+  
   answers.forEach(block => block.draw(ctx));
   
-  requestAnimationFrame(animation);
+ 
+  // grid.draw(ctx);
+  ctx.restore();
+  text.draw(ctx);
+  requestAnimationFrame(animation)
+  // setTimeout(() => animation(), 1000/60);
 }
 window.addEventListener('load', () => {
   resizeCanvas();
   animation();
   blocks.push(
-    new Block(-40, 0, canvas.height * 3, 100, -1),
-    new Block(canvas.width + 40, 0, canvas.height * 3, 100, -1),
-    new Block(0, -40, 100, canvas.width * 3, -1),
-    new Block(0, canvas.height + 40, 100, canvas.width * 3, -1),
+    new Block(300, 150, canvas.height * 3, 50, -1),
+    new Block(1100, 150, canvas.height * 3, 50, -1),
+    new Block(350, 50, 50, canvas.width * 3, -1),
+    new Block(300, 600, 50, canvas.width * 3, -1),
   )
 });
