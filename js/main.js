@@ -13,15 +13,22 @@ function resizeCanvas() {
   const screenWidth = window.innerWidth;
   const screenHeight = window.innerHeight;
 
-  canvas.width = screenWidth;
-  canvas.height = screenHeight;
+  canvas.width = screenWidth-5;
+  canvas.height = screenHeight-5;
 }
 window.addEventListener('resize', resizeCanvas);
 
 const player = new Mario(100, 100, 45*1.5, 40*1.5, marioSprites)
 const blocks = [
   new Block(300, 400, 50, 400),
+  new Block(100, 100, 50, 50),
 ]
+const backgrounds = [
+  new Background(300, 500, 50, 50),
+  new Background(500, 500, 50, 100)
+]
+
+const text = new Sentence('He ___ playing football now!', 0, 50);
 
 const checkCollision = () => {
   let isGrounded = false;
@@ -45,7 +52,6 @@ const checkCollision = () => {
       playerBottom >= blockTop &&
       playerTop <= blockBottom
     ) {
-      console.log('collision');
 
       // Визначаємо з якого боку гравець зіткнувся з блоком
       const overlapX = Math.min(playerRight - blockLeft, blockRight - playerLeft);
@@ -78,19 +84,54 @@ const checkCollision = () => {
   } else player.isGrounded = false;
 }
 
-
-
+const grid = new Grid();
+grid.draw(ctx);
 
 const animation = () => {
   canvas.height = canvas.height;
+
+  // ctx.save();
+  // ctx.translate( player.x - canvas.width * 0.5, player.y - canvas.height * 0.5);
   
+  
+  // const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+  // gradient.addColorStop(0, '#FFD700');  // Світлий жовтий
+  // gradient.addColorStop(1, '#FF6347');  // Світло-помаранчевий
+
+  // ctx.fillStyle = gradient;
+  // ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+
+  // const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+  // gradient.addColorStop(0, '#4FC3F7');  // Світло-синій
+  // gradient.addColorStop(1, '#1976D2');  // Темно-синій
+  // ctx.fillStyle = gradient;
+  // ctx.fillRect(0, 0, canvas.width, canvas.height);
+
   checkCollision();
-  player.update();
-  player.draw(ctx);
-  
   blocks.forEach(block => {
     block.draw(ctx);
   });
+  backgrounds.forEach(block => {
+    block.draw(ctx);
+  });
+  player.update();
+  player.draw(ctx);
+
+  // ctx.restore();
+  text.draw(ctx);
+
+  grid.draw(ctx);
+  
   requestAnimationFrame(animation);
 }
-window.addEventListener('load', () => {resizeCanvas(); animation()});
+window.addEventListener('load', () => {
+  resizeCanvas();
+  animation();
+  blocks.push(
+    new Block(-40, 0, canvas.height * 3, 100),
+    new Block(canvas.width + 40, 0, canvas.height * 3, 100),
+    new Block(0, -40, 100, canvas.width * 3),
+    new Block(0, canvas.height + 40, 100, canvas.width * 3),
+  )
+});

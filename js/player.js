@@ -27,11 +27,12 @@ class Mario {
       this.frame = 0;
     }
   }
-  frameAnim(framesCount, delaysCount = 5) {
+  frameAnim(framesCount, delaysCount = 5, repeat = true) {
     this.frameDelay++;
       if(this.frameDelay >= delaysCount) {
         this.frameDelay = 0;
         if(this.frame === framesCount-1) {
+          if(!repeat) return;
           this.frame = 0;
         } else {
           this.frame++;
@@ -41,7 +42,7 @@ class Mario {
   animation() {
     if(!this.isGrounded) {
       this.checkAnimation('jump', 2);
-      this.frameAnim(1)
+      this.frameAnim(3, 4, false)
     } else {
       if(this.velocity.x !== 0) {
         this.checkAnimation('running', 1);
@@ -85,8 +86,8 @@ class Mario {
     ctx.drawImage(this.assets, this.frame * this.assetsSize, this.row * this.assetsSize, this.assetsSize, this.assetsSize, offset  - this.width/2, 0 - this.height/2, this.width, this.height);
 
     ctx.globalAlpha = 0.4;
-    ctx.fillStyle = 'green'
-    ctx.fillRect(-this.width/2, -this.height/2, this.width, this.height);
+    ctx.fillStyle = 'green';
+    // ctx.fillRect(-this.width/2, -this.height/2, this.width, this.height);
     ctx.restore();
     ctx.scale(1, 1);
   }

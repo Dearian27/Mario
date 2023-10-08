@@ -1,8 +1,13 @@
+@font-face {
+  font-family: 'Retro';
+  src: url('../assets/retro.ttf');
+}
 * {
   padding: 0;
   margin: 0;
 }
 #canvas {
-  height: 700px;
+  /* height: 700px; */
   /* width: 1000px; */
 }
+

@@ -5,7 +5,6 @@ const controls = {
 }
 
 window.addEventListener('keydown', (event) => {
-  console.log(event.key, event.keyCode)
   switch(event.keyCode) {
     case 68: controls.right = true; break; //D
     case 39: controls.right = true; break; //arrow right
