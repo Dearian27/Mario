@@ -19,6 +19,9 @@ const questions = [
     ]
   },
 ]
+questions.forEach(question => {
+  question.variants = shuffleArray(question.variants);
+});
 let currentQuestion = 0;
 
 const canvas = document.getElementById('canvas');
