@@ -7,6 +7,7 @@ let questions = [
     answer: 'She is cooking now.',
     variants: [
       {isRight: true, text: 'is'},
+      {isRight: false, text: 'are'},
       {isRight: false, text: 'am'},
     ]
   },
@@ -15,6 +16,7 @@ let questions = [
     answer: 'Are they playing the piano at the moment?',
     variants: [
       {isRight: false, text: 'is'},
+      {isRight: false, text: 'am'},
       {isRight: true, text: 'are'},
     ]
   },
@@ -67,13 +69,9 @@ window.addEventListener('resize', resizeCanvas);
 
 const player = new Mario(730, 400, 45*1.5, 40*1.5, marioSprites)
 const blocks = [
-  new AnimBlock(500, 300, 51, 51, 0, 0, 4, 1, 200),
-  new AnimBlock(550, 300, 51, 51, 0, 0, 4, 1, 200),
-  new AnimBlock(650, 300, 51, 51, 0, 0, 4, 1, 200),
-  new AnimBlock(700, 300, 51, 51, 0, 0, 4, 1, 200),
-  new AnimBlock(750, 300, 51, 51, 0, 0, 4, 1, 200),
-  new AnimBlock(850, 300, 51, 51, 0, 0, 4, 1, 200),
-  new AnimBlock(900, 300, 51, 51, 0, 0, 4, 1, 200),
+  // new AnimBlock(550, 300, 51, 51, 0, 0, 4, 1, 200),
+  // new AnimBlock(700, 300, 51, 51, 0, 0, 4, 1, 200),
+  // new AnimBlock(850, 300, 51, 51, 0, 0, 4, 1, 200),
 
   new Block(400, 550, 51, 51, 2, 2),
   new Block(1050, 500, 50, 51, 3, 3),
@@ -97,13 +95,23 @@ const backgrounds = [
   new BackBlocks(450, 550, 50, 50, 2, 1, 11),  
   new Background(1000, 550, 51, 51, 3, 2),
 ]
-let text, progress, answerBlocks = [0, 0], answersMessages = [0, 0];
+let text, progress, answerBlocks = [0, 0], answersMessages = [0, 0], bricks = [];
 
 const init = () => {
-  let arr = [0, 0];
+  answerBlocks = [0, 0], answersMessages = [0, 0], bricks = [];
+
+  let arr = new Array(questions[currentQuestion].variants.length);
   for(let i = 0; i < arr.length; i++) {
-    answerBlocks[i] = new AnswerBlock(i, i == 0 ? 600 : 800, 300, 51, 51, 0, 0, 4, 0, 32, questions[currentQuestion].variants[i].isRight); 
+    answerBlocks[i] = new AnswerBlock(i, answerLayout[arr.length][i], 300, 51, 51, 0, 0, 4, 0, 32, questions[currentQuestion].variants[i].isRight); 
     answersMessages[i] = new Message(i, answerBlocks[i].x, answerBlocks[i].y-100, 100, 50, questions[currentQuestion].variants[i].text, 20, 'black', 'white', 10);
+  }
+  for(let i = 500; i <= 900; i+=50) {
+    if(!answerLayout[arr.length].includes(i)) {
+      console.log(
+        'push'
+      )
+      bricks.push(new AnimBlock(i, 300, 51, 51, 0, 0, 4, 1, 200));
+    }
   }
   text = new Sentence(questions[currentQuestion].question, 0, 50);
   progress = new Sentence(`${currentQuestion+1}/${questions.length}`, 0, 50, 'right');
@@ -112,7 +120,7 @@ init();
 
 const checkCollision = () => {
   let isGrounded = false;
-  const colliders = answerBlocks.length ? [...answerBlocks, ...blocks] : [...blocks];
+  const colliders = answerBlocks.length && bricks.length ? [...answerBlocks, ...bricks, ...blocks] : [...blocks];
   colliders.forEach(block => {
     const blockLeft = block.x - block.width / 2;
     const blockRight = block.x + block.width / 2;
@@ -200,6 +208,9 @@ const animation = () => {
   
   checkCollision();
   blocks.forEach(block => {
+    block.draw(ctx);
+  });
+  bricks.forEach(block => {
     block.draw(ctx);
   });
   backgrounds.forEach(block => {

@@ -36,3 +36,8 @@ function shuffleArray(array) {
   }
   return array;
 }
+
+const answerLayout = {
+  [2]: [600, 800],
+  [3]: [550, 700, 850],
+}

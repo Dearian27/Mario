@@ -17,7 +17,7 @@ class Message {
   }
   widthChange(ctx) {
     ctx.font = `${this.fontSize}px Retro`;
-    let newWidth = ctx.measureText(this.message).width + 52;
+    let newWidth = ctx.measureText(this.message).width + 42;
     if(newWidth > this.width) {
       this.width = newWidth;
     }
