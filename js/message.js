@@ -13,28 +13,40 @@ class Message {
     this.style = 'default';
     this.triangleHeight = 10;
     this.triangleBase = 15;
+    this.widthChanged = false;
   }
-
+  widthChange(ctx) {
+    ctx.font = `${this.fontSize}px Retro`;
+    let newWidth = ctx.measureText(this.message).width + 52;
+    if(newWidth > this.width) {
+      this.width = newWidth;
+    }
+    this.widthChanged = true;
+  }
   draw(ctx) {
+    if(!this.widthChanged) {
+      this.widthChange(ctx);
+    }
     ctx.fillStyle = this.bgColor;
     ctx.beginPath();
-    ctx.moveTo(this.x + this.cornerRadius, this.y);
-    ctx.lineTo(this.x + this.width - this.cornerRadius, this.y);
-    ctx.arcTo(this.x + this.width, this.y, this.x + this.width, this.y + this.cornerRadius, this.cornerRadius);
-    ctx.lineTo(this.x + this.width, this.y + this.height - this.cornerRadius);
-    ctx.arcTo(this.x + this.width, this.y + this.height, this.x + this.width - this.cornerRadius, this.y + this.height, this.cornerRadius);
-    ctx.lineTo(this.x + this.cornerRadius, this.y + this.height);
-    ctx.arcTo(this.x, this.y + this.height, this.x, this.y + this.height - this.cornerRadius, this.cornerRadius);
-    ctx.lineTo(this.x, this.y + this.cornerRadius);
-    ctx.arcTo(this.x, this.y, this.x + this.cornerRadius, this.y, this.cornerRadius);
+    ctx.moveTo(this.x - this.width/2 + this.cornerRadius, this.y);
+    ctx.lineTo(this.x - this.width/2 + this.width - this.cornerRadius, this.y);
+    ctx.arcTo(this.x - this.width/2 + this.width, this.y, this.x - this.width/2 + this.width, this.y + this.cornerRadius, this.cornerRadius);
+    ctx.lineTo(this.x - this.width/2 + this.width, this.y + this.height - this.cornerRadius);
+    ctx.arcTo(this.x - this.width/2 + this.width, this.y + this.height, this.x - this.width/2 + this.width - this.cornerRadius, this.y + this.height, this.cornerRadius);
+    ctx.lineTo(this.x - this.width/2 + this.cornerRadius, this.y + this.height);
+    ctx.arcTo(this.x - this.width/2, this.y + this.height, this.x - this.width/2, this.y + this.height - this.cornerRadius, this.cornerRadius);
+    ctx.lineTo(this.x - this.width/2, this.y + this.cornerRadius);
+    ctx.arcTo(this.x - this.width/2, this.y, this.x - this.width/2 + this.cornerRadius, this.y, this.cornerRadius);
     ctx.closePath();
     ctx.fill();
     ctx.beginPath();
-    ctx.moveTo(this.x + this.width / 2 - this.triangleBase / 2, this.y + this.height-1);
-    ctx.lineTo(this.x + this.width / 2 + this.triangleBase / 2, this.y + this.height);
-    ctx.lineTo(this.x + this.width / 2, this.y + this.height + this.triangleHeight);
+    ctx.moveTo(this.x - this.width/2 + this.width / 2 - this.triangleBase / 2, this.y + this.height-1);
+    ctx.lineTo(this.x - this.width/2 + this.width / 2 + this.triangleBase / 2, this.y + this.height);
+    ctx.lineTo(this.x - this.width/2 + this.width / 2, this.y + this.height + this.triangleHeight);
     ctx.closePath();
     ctx.fill();
+
     ctx.font = `${this.fontSize}px Retro`;
     if(this.style === 'default') {
       ctx.fillStyle = this.fontColor;
@@ -45,6 +57,6 @@ class Message {
     }
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText(this.message, this.x + this.width / 2, this.y + this.height / 2);
+    ctx.fillText(this.message, this.x, this.y + this.height / 2);
   }
 }

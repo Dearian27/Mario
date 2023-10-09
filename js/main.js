@@ -1,24 +1,49 @@
 const marioSprites = new Image();
 marioSprites.src = '../assets/mario2.svg';
 
-const questions = [
+let questions = [
   {
-    question: 'They ___ Spain last mounth.',
-    answer: 'They visited Spain last mounth.',
+    question: 'She ___ cooking now.',
+    answer: 'She is cooking now.',
     variants: [
-      {isRight: false, text: 'visiting'},
-      {isRight: true, text: 'visited'},
+      {isRight: true, text: 'is'},
+      {isRight: false, text: 'am'},
     ]
   },
   {
-    question: 'He ___ playing footall now!',
-    answer: 'He is playing footall now!',
+    question: '___ they playing the piano at the moment?',
+    answer: 'Are they playing the piano at the moment?',
     variants: [
-      {isRight: true, text: 'is'},
-      {isRight: false, text: 'are'},
+      {isRight: false, text: 'is'},
+      {isRight: true, text: 'are'},
+    ]
+  },
+  {
+    question: 'Mary and Jack are not ___ now.',
+    answer: 'Mary and Jack are not talking now.',
+    variants: [
+      {isRight: true, text: 'talking'},
+      {isRight: false, text: 'talks'},
+    ]
+  },
+  {
+    question: '___ we ___ exercises at the moment?',
+    answer: 'Are we doing exercises at the moment?',
+    variants: [
+      {isRight: true, text: 'are/doing'},
+      {isRight: false, text: 'are/do'},
+    ]
+  },
+  {
+    question: 'Sam isn\'t ___ English at the moment.',
+    answer: 'Sam isn\'t learning English at the moment.',
+    variants: [
+      {isRight: true, text: 'learing'},
+      {isRight: false, text: 'learns'},
     ]
   },
 ]
+questions = shuffleArray(questions);
 questions.forEach(question => {
   question.variants = shuffleArray(question.variants);
 });
@@ -50,10 +75,7 @@ const blocks = [
   new AnimBlock(850, 300, 51, 51, 0, 0, 4, 1, 200),
   new AnimBlock(900, 300, 51, 51, 0, 0, 4, 1, 200),
 
-
-  
   new Block(400, 550, 51, 51, 2, 2),
-
   new Block(1050, 500, 50, 51, 3, 3),
   new Block(400, 500, 50, 50, 0, 0),
   new Block(450, 500, 50, 50),
@@ -75,15 +97,16 @@ const backgrounds = [
   new BackBlocks(450, 550, 50, 50, 2, 1, 11),  
   new Background(1000, 550, 51, 51, 3, 2),
 ]
-let text, answerBlocks = [0, 0], answersMessages = [0, 0];
+let text, progress, answerBlocks = [0, 0], answersMessages = [0, 0];
 
 const init = () => {
   let arr = [0, 0];
   for(let i = 0; i < arr.length; i++) {
     answerBlocks[i] = new AnswerBlock(i, i == 0 ? 600 : 800, 300, 51, 51, 0, 0, 4, 0, 32, questions[currentQuestion].variants[i].isRight); 
-    answersMessages[i] = new Message(i, answerBlocks[i].x-answerBlocks[i].width, answerBlocks[i].y-100, 100, 50, questions[currentQuestion].variants[i].text, 20, 'black', 'white', 10);
+    answersMessages[i] = new Message(i, answerBlocks[i].x, answerBlocks[i].y-100, 100, 50, questions[currentQuestion].variants[i].text, 20, 'black', 'white', 10);
   }
   text = new Sentence(questions[currentQuestion].question, 0, 50);
+  progress = new Sentence(`${currentQuestion+1}/${questions.length}`, 0, 50, 'right');
 }
 init();
 
@@ -191,6 +214,7 @@ const animation = () => {
   // grid.draw(ctx);
   ctx.restore();
   text.draw(ctx);
+  progress.draw(ctx);
   requestAnimationFrame(animation)
   // setTimeout(() => animation(), 1000/60);
 }
