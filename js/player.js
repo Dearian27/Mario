@@ -8,6 +8,7 @@ class Mario {
       x: 0,
       y: 0
     }
+    this.active = true;
     this.assets = assets;
     this.frame = 0;
     this.row = 0;
@@ -54,23 +55,28 @@ class Mario {
     }
   }
   update() {
-    if(controls.right) {
-      this.velocity.x = 3;
-      this.direction = 'right';
-    }
-    if(controls.left) {
-      this.velocity.x = -3;
-      this.direction = 'left';
-    }
-    if(controls.jump && this.isGrounded) {
-      this.velocity.y = -11;
-      // this.isGrounded = false;
-    }
-        
+    if(this.active) {
+      if(controls.right) {
+        this.velocity.x = 3;
+        this.direction = 'right';
+      }
+      if(controls.left) {
+        this.velocity.x = -3;
+        this.direction = 'left';
+      }
+      if(controls.jump && this.isGrounded) {
+        this.isGrounded = false;
+        playSound(audio.jump);
+        this.velocity.y = -11;
+      }
+      this.animation();
+    } else {
+      this.frame = 3;
+      this.row = 3;
+    }   
     this.velocity.y = (this.velocity.y * 10 + 3)/ 10; // gravity
     this.y += this.velocity.y;
     this.x += this.velocity.x;
-    this.animation();
     this.velocity.x = 0;
     
   }

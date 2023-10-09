@@ -6,6 +6,7 @@ class Block {
     this.height = height;
     this.xOffset = xOffset;
     this.yOffset = yOffset;
+    this.type = 'default'; 
   }
 
   draw(ctx) {
