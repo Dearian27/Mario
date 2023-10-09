@@ -1,3 +1,15 @@
+const modal = document.getElementById('myModal');
+const btn = document.getElementById('btn');
+const animateElement = document.getElementById('startAnimation'); // Замініть на ваш ID анімації
+function openModal() {
+  modal.classList.add('active');
+  animateElement.beginElement();
+}
+function closeModal() {
+  modal.classList.remove('active');
+}
+btn.addEventListener('click', () => {closeModal();init()});
+
 const marioSprites = new Image();
 marioSprites.src = '../assets/mario2.svg';
 
@@ -179,6 +191,9 @@ const checkCollision = () => {
                 currentQuestion++;
                 if(currentQuestion !== questions.length) {
                   init();
+                }else {
+                  currentQuestion = 0;
+                  openModal();
                 }
               }, 3000)
             }
