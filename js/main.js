@@ -69,7 +69,7 @@ const blocks = [
   new Block(1000, 500, 50, 50, 0, 0),
 ]
 const backgrounds = [
-  new BackBlocks(450, 550, 51, 51, 2, 1, 11),  
+  new BackBlocks(450, 550, 50, 50, 2, 1, 11),  
   new Background(1000, 550, 51, 51, 3, 2),
 ]
 let text, answerBlocks = [0, 0], answersMessages = [0, 0];
@@ -135,6 +135,7 @@ const checkCollision = () => {
               }, 3000);
               setTimeout(() => player.active = true, 3500);
             } else if(!checked) {
+              text.text = questions[currentQuestion].answer;
               playSound(audio.right);
               answersMessages[block.id].style = 'right';
               answerBlocks.forEach(block => {
@@ -142,7 +143,9 @@ const checkCollision = () => {
               })
               setTimeout(() => {
                 currentQuestion++;
-                init();
+                if(currentQuestion !== questions.length) {
+                  init();
+                }
               }, 3000)
             }
           }
@@ -167,7 +170,7 @@ const animation = () => {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   ctx.save();
-  ctx.translate( -Math.round(player.x) + canvas.width/2, -Math.round(player.y) + canvas.height/2);
+  ctx.translate( Math.round(-player.x + canvas.width/2), Math.round(-player.y + canvas.height/2));
   
   checkCollision();
   blocks.forEach(block => {
