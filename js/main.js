@@ -8,7 +8,7 @@ function openModal() {
 function closeModal() {
   modal.classList.remove('active');
 }
-btn.addEventListener('click', () => {closeModal();init()});
+btn.addEventListener('click', () => {closeModal();shuffle();init()});
 
 const marioSprites = new Image();
 marioSprites.src = '../assets/mario2.svg';
@@ -57,10 +57,12 @@ let questions = [
     ]
   },
 ]
-questions = shuffleArray(questions);
-questions.forEach(question => {
-  question.variants = shuffleArray(question.variants);
-});
+const shuffle = () => {
+  questions = shuffleArray(questions);
+  questions.forEach(question => {
+    question.variants = shuffleArray(question.variants);
+  });
+}
 let currentQuestion = 0;
 
 const canvas = document.getElementById('canvas');
@@ -110,6 +112,7 @@ const backgrounds = [
 let text, progress, answerBlocks = [0, 0], answersMessages = [0, 0], bricks = [];
 
 const init = () => {
+  player.active = true;
   answerBlocks = [0, 0], answersMessages = [0, 0], bricks = [];
 
   let arr = new Array(questions[currentQuestion].variants.length);
@@ -119,9 +122,6 @@ const init = () => {
   }
   for(let i = 500; i <= 900; i+=50) {
     if(!answerLayout[arr.length].includes(i)) {
-      console.log(
-        'push'
-      )
       bricks.push(new AnimBlock(i, 300, 51, 51, 0, 0, 4, 1, 200));
     }
   }
@@ -175,6 +175,7 @@ const checkCollision = () => {
               answersMessages[block.id].style = 'wrong';
               playSound(audio.wrong);
               player.active = false;
+              shuffle();
               setTimeout(() => {
                 currentQuestion = 0;
                 init();
@@ -187,13 +188,18 @@ const checkCollision = () => {
               answerBlocks.forEach(block => {
                 block.checked = true;
               })
+              currentQuestion++;
+              if(currentQuestion === questions.length) {
+                setTimeout(() => {
+                  openModal();
+                  player.active = false;
+                },1000)
+              }
               setTimeout(() => {
-                currentQuestion++;
                 if(currentQuestion !== questions.length) {
                   init();
                 }else {
                   currentQuestion = 0;
-                  openModal();
                 }
               }, 3000)
             }

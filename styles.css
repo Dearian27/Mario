@@ -12,7 +12,8 @@
   /* width: 1000px; */
 }
 .modal {
-  display: none;
+  /* display: none; */
+  display: flex;
   position: fixed;
   z-index: 1;
   left: 0;
@@ -45,8 +46,13 @@
   height: 300px;
   width: 300px;
 }
-.modal .btn {
+.modal .btns {
+  display: flex;
   width: 100%;
+}
+.modal .btn {
+  box-sizing: border-box;
+  width: 50%;
   padding: 15px 0;
   border: none;
   background-color: #46eb9c;
@@ -54,6 +60,19 @@
   font-size: 26px;
   font-family: 'Montserrat', sans-serif;
   cursor: pointer;
+  transition: background-color 0.5s, color 0.5s;
+}
+.btn.outlined {
+  background-color: white;
+  color: #46eb9c;
+  border: 4px solid #46eb9c;
+}
+#btn:hover {
+  background-color: #3bd189;
+}
+.btn.outlined:hover {
+  color: #6ef9b6;
+  background-color: #f3f3f3;
 }
 .modal h1 {
   font-family: 'Montserrat', sans-serif;
