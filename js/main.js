@@ -39,13 +39,13 @@ window.addEventListener('resize', resizeCanvas);
 
 const player = new Mario(730, 400, 45*1.5, 40*1.5, marioSprites)
 const blocks = [
-  new AnimBlock(500, 300, 51, 51, 0, 0, 4, 5, 200),
-  new AnimBlock(550, 300, 51, 51, 0, 0, 4, 5, 200),
-  new AnimBlock(650, 300, 51, 51, 0, 0, 4, 5, 200),
-  new AnimBlock(700, 300, 51, 51, 0, 0, 4, 5, 200),
-  new AnimBlock(750, 300, 51, 51, 0, 0, 4, 5, 200),
-  new AnimBlock(850, 300, 51, 51, 0, 0, 4, 5, 200),
-  new AnimBlock(900, 300, 51, 51, 0, 0, 4, 5, 200),
+  new AnimBlock(500, 300, 51, 51, 0, 0, 4, 1, 200),
+  new AnimBlock(550, 300, 51, 51, 0, 0, 4, 1, 200),
+  new AnimBlock(650, 300, 51, 51, 0, 0, 4, 1, 200),
+  new AnimBlock(700, 300, 51, 51, 0, 0, 4, 1, 200),
+  new AnimBlock(750, 300, 51, 51, 0, 0, 4, 1, 200),
+  new AnimBlock(850, 300, 51, 51, 0, 0, 4, 1, 200),
+  new AnimBlock(900, 300, 51, 51, 0, 0, 4, 1, 200),
 
 
   
@@ -77,7 +77,7 @@ let text, answerBlocks = [0, 0], answersMessages = [0, 0];
 const init = () => {
   let arr = [0, 0];
   for(let i = 0; i < arr.length; i++) {
-    answerBlocks[i] = new AnswerBlock(i, i == 0 ? 600 : 800, 300, 51, 51, 0, 0, 4, 4, 32, questions[currentQuestion].variants[i].isRight); 
+    answerBlocks[i] = new AnswerBlock(i, i == 0 ? 600 : 800, 300, 51, 51, 0, 0, 4, 0, 32, questions[currentQuestion].variants[i].isRight); 
     answersMessages[i] = new Message(i, answerBlocks[i].x-answerBlocks[i].width, answerBlocks[i].y-100, 100, 50, questions[currentQuestion].variants[i].text, 20, 'black', 'white', 10);
   }
   text = new Sentence(questions[currentQuestion].question, 0, 50);
@@ -161,20 +161,13 @@ const animation = () => {
   canvas.height = canvas.height;
   
   const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-  gradient.addColorStop(0, '#4FC3F7');  // Світло-синій
-  gradient.addColorStop(1, '#1976D2');  // Темно-синій
+  gradient.addColorStop(0, backgroundGradients[randomMap][0]);
+  gradient.addColorStop(1, backgroundGradients[randomMap][1]);
   ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   ctx.save();
   ctx.translate( -Math.round(player.x) + canvas.width/2, -Math.round(player.y) + canvas.height/2);
-
-  // const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-  // gradient.addColorStop(0, '#FFD700');  // Світлий жовтий
-  // gradient.addColorStop(1, '#FF6347');  // Світло-помаранчевий
-  // ctx.fillStyle = gradient;
-  // ctx.fillRect(0, 0, canvas.width, canvas.height);
-
   
   checkCollision();
   blocks.forEach(block => {

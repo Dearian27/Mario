@@ -11,7 +11,7 @@ class Block {
 
   draw(ctx) {
     ctx.beginPath();
-    ctx.drawImage(tiles, tileSize * this.xOffset, tileSize * this.yOffset, tileSize, tileSize, this.x - this.width/2, this.y - this.height/2, this.width, this.height);
+    ctx.drawImage(tiles, tileSize * this.xOffset + blocksOffset[randomMap], tileSize * this.yOffset, tileSize, tileSize, this.x - this.width/2, this.y - this.height/2, this.width, this.height);
     // ctx.drawImage(tiles, this.x - this.width/2, this.y - this.height/2, this.width, this.height*2);
     // ctx.drawImage(tiles, 0, 0, this.width, this.height, this.x - (this.width/2), this.y - (this.height/2), this.width, this.height);
 

@@ -1,6 +1,22 @@
 const tiles = new Image();
 tiles.src = '../assets/blocks.png';
+const animTiles = new Image();
+animTiles.src = '../assets/animblocks.png';
 const tileSize = 50;
+
+
+const backgroundGradients = [
+  ['#4FC3F7', '#1976D2'],
+  ['#FFD700', '#FF6347'],
+  ['#0F1B3A', '#0F1626']
+];
+const blocksOffset = [
+  0,
+  200,
+  400,
+]
+const randomMap = Math.floor(Math.random() * blocksOffset.length);
+
 
 const audio = {
   wrong: '../assets/wrong.mp3',

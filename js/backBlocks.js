@@ -11,7 +11,7 @@ class BackBlocks {
   draw(ctx) {
     ctx.beginPath();
     for(let i = 0; i < this.count; i++) {
-      ctx.drawImage(tiles, tileSize * this.frame, tileSize * this.row, tileSize, tileSize, this.x - this.width/2 + this.width * i, this.y - this.height/2, this.width, this.height);
+      ctx.drawImage(tiles, tileSize * this.frame + blocksOffset[randomMap], tileSize * this.row, tileSize, tileSize, this.x - this.width/2 + 50 * i, this.y - this.height/2, this.width, this.height);
     }
   }
 }

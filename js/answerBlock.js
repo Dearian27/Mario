@@ -48,9 +48,9 @@ class AnswerBlock extends Block {
       if(this.isRight) {
         this.right();
       } else {
-        this.row = 5;
+        this.row = 1;
         setTimeout(() => {
-          this.row = 4;
+          this.row = 0;
         }, 3000);
       }
     }
@@ -63,6 +63,6 @@ class AnswerBlock extends Block {
   draw() {
     this.update();
     ctx.beginPath();
-    ctx.drawImage(tiles, tileSize * this.frame, tileSize * this.row, tileSize, tileSize, this.x - this.width/2, this.y - this.height/2, this.width, this.height);
+    ctx.drawImage(animTiles, tileSize * this.frame, tileSize * this.row, tileSize, tileSize, this.x - this.width/2, this.y - this.height/2, this.width, this.height);
   }
 }
