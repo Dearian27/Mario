@@ -63,6 +63,7 @@ const shuffle = () => {
     question.variants = shuffleArray(question.variants);
   });
 }
+shuffle();
 let currentQuestion = 0;
 
 const canvas = document.getElementById('canvas');
@@ -73,11 +74,17 @@ ctx.webkitImageSmoothingEnabled = false;
 ctx.mozImageSmoothingEnabled = false;
 
 function resizeCanvas() {
-  const screenWidth = window.innerWidth;
-  const screenHeight = window.innerHeight;
+  let scale = 1;
+  if(window.innerWidth < 768) {
+    scale = 2;
+  }
+  const screenWidth = window.innerWidth * scale;
+  const screenHeight = window.innerHeight * scale;
 
   canvas.width = screenWidth-5;
   canvas.height = screenHeight-5;
+  // canvas.style.transform = 'scale(0.5)';
+  canvas.style.overflow = 'hidden';
 }
 window.addEventListener('resize', resizeCanvas);
 
@@ -216,17 +223,19 @@ const checkCollision = () => {
 // const grid = new Grid();
 
 const animation = () => {
+  // const scaleFactor = 0.5;
+  
   canvas.height = canvas.height;
+  
   
   const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
   gradient.addColorStop(0, backgroundGradients[randomMap][0]);
   gradient.addColorStop(1, backgroundGradients[randomMap][1]);
   ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-  ctx.save();
-  ctx.translate( Math.round(-player.x + canvas.width/2), Math.round(-player.y + canvas.height/2));
   
+  ctx.save();
+  ctx.translate(Math.round(-player.x + canvas.width/2), Math.round(-player.y + canvas.height/2));
   checkCollision();
   blocks.forEach(block => {
     block.draw(ctx);
@@ -242,13 +251,11 @@ const animation = () => {
   
   answerBlocks.forEach(block => block.draw(ctx));
   answersMessages.forEach(message => message.draw(ctx)); //
- 
-  // grid.draw(ctx);
+  
   ctx.restore();
   text.draw(ctx);
   progress.draw(ctx);
   requestAnimationFrame(animation)
-  // setTimeout(() => animation(), 1000/60);
 }
 window.addEventListener('load', () => {
   resizeCanvas();

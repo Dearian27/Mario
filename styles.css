@@ -7,9 +7,13 @@
   padding: 0;
   margin: 0;
 }
+body {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 #canvas {
-  /* height: 700px; */
-  /* width: 1000px; */
 }
 .modal {
   display: none;

@@ -93,7 +93,7 @@ class Mario {
     ctx.globalAlpha = 0.4;
     ctx.fillStyle = 'green';
     // ctx.fillRect(-this.width/2, -this.height/2, this.width, this.height);
-    ctx.restore();
     ctx.scale(1, 1);
+    ctx.restore();
   }
 }
