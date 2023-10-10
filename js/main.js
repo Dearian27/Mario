@@ -76,10 +76,15 @@ ctx.mozImageSmoothingEnabled = false;
 function resizeCanvas() {
   let scale = 1;
   if(window.innerWidth < 768) {
-    scale = 2;
+    scale = 3;
   }
   const screenWidth = window.innerWidth * scale;
   const screenHeight = window.innerHeight * scale;
+
+  // canvas.height = canvas.height;
+  // canvas.style.height = `${screenHeight/2}px`;
+  // canvas.style.width = `${screenWidth/2}px`;
+  // ctx.canvas.height = canvas.height * 2;
 
   canvas.width = screenWidth-5;
   canvas.height = screenHeight-5;
@@ -223,9 +228,19 @@ const checkCollision = () => {
 // const grid = new Grid();
 
 const animation = () => {
-  // const scaleFactor = 0.5;
+  const scaleFactor = 0.5;
   
   canvas.height = canvas.height;
+//   canvas.width = 1000; // Задає внутрішню ширину канвасу в 1000 пікселів
+// canvas.height = 1000; // Задає внутрішню висоту канвасу в 1000 пікселів
+
+// canvas.style.width = '500px'; // Задає відображену ширину канвасу в 500 пікселів через CSS
+// canvas.style.height = '500px';
+
+  // canvas.height = canvas.height;
+  // canvas.style.height = `${canvas.height/2}px`;
+  // canvas.style.width = `${canvas.width/2}px`;
+  // // ctx.canvas.height = canvas.height * 2;
   
   
   const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
@@ -255,6 +270,8 @@ const animation = () => {
   ctx.restore();
   text.draw(ctx);
   progress.draw(ctx);
+
+  // ctx.scale(scaleFactor, scaleFactor);
   requestAnimationFrame(animation)
 }
 window.addEventListener('load', () => {
