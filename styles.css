@@ -129,8 +129,8 @@ body {
   user-select: none;
   -webkit-user-drag: none;
 }
-@media (max-width: 900px) {
+/* @media (max-width: 900px) {
   .control {
     visibility: visible;
   }
-}
+} */
