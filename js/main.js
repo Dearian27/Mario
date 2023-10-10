@@ -75,7 +75,9 @@ ctx.mozImageSmoothingEnabled = false;
 
 function resizeCanvas() {
   let scale = 1;
-  if(window.innerWidth < 768) {
+  if(window.innerWidth < 768 ||
+    (!window.matchMedia("(orientation: portrait)") && window.innerHeight < 768)
+    ) {
     scale = 3;
   }
   const screenWidth = window.innerWidth * scale;
