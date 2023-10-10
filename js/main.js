@@ -75,18 +75,19 @@ ctx.mozImageSmoothingEnabled = false;
 
 function resizeCanvas() {
   let scale = 1;
-  if(window.innerWidth < 768 ||
-    (!window.matchMedia("(orientation: portrait)") && window.innerHeight < 768)
-    ) {
+  if(window.innerHeight < 320) {
     scale = 3;
+  }
+  else if(window.innerHeight < 450) {
+    scale = 2;
+  }
+  else if(window.innerHeight < 670 
+    // || (screen.orientation === 'album' && window.innerHeight < 768)
+    ) {
+    scale = 1.5;
   }
   const screenWidth = window.innerWidth * scale;
   const screenHeight = window.innerHeight * scale;
-
-  // canvas.height = canvas.height;
-  // canvas.style.height = `${screenHeight/2}px`;
-  // canvas.style.width = `${screenWidth/2}px`;
-  // ctx.canvas.height = canvas.height * 2;
 
   canvas.width = screenWidth-5;
   canvas.height = screenHeight-5;
