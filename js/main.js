@@ -104,7 +104,7 @@ function resizeCanvas() {
   canvas.width = screenWidth-5;
   canvas.height = screenHeight-5;
   // canvas.style.transform = 'scale(0.5)';
-  // canvas.style.overflow = 'hidden';
+  canvas.style.overflow = 'hidden';
 }
 window.addEventListener('resize', resizeCanvas);
 
