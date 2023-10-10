@@ -29,6 +29,18 @@ const btnLeft = document.querySelector('.left');
 const btnRight = document.querySelector('.right');
 const btnUp = document.querySelector('.up');
 
+
+
+btnLeft.addEventListener('contextmenu', function(event) {
+  event.preventDefault();
+});
+btnRight.addEventListener('contextmenu', function(event) {
+  event.preventDefault();
+});
+btnUp.addEventListener('contextmenu', function(event) {
+  event.preventDefault();
+});
+
 window.addEventListener('touchstart', (event) => {
   console.log(event.target, btnLeft);
   console.log(event.target === btnLeft);
