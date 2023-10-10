@@ -2,17 +2,27 @@ const modal = document.getElementById('myModal');
 const btn = document.getElementById('btn');
 const animateElement = document.getElementById('startAnimation'); // Замініть на ваш ID анімації
 const btnFullscreen = document.getElementById('btnFullscreen');
+const canvasContainer = document.querySelector('.canvas-container');
+
+
 function goFullscreen() {
-  if (canvas.requestFullscreen) {
-    console.log('fullscreen')
-    canvas.requestFullscreen();
-  } else if (canvas.webkitRequestFullscreen) { /* Safari */
-    canvas.webkitRequestFullscreen();
-  } else if (canvas.msRequestFullscreen) { /* IE11 */
-    canvas.msRequestFullscreen();
+  if (canvasContainer.requestFullscreen) {
+    canvasContainer.requestFullscreen();
+  } else if (canvasContainer.webkitRequestFullscreen) { /* Safari */
+  canvasContainer.webkitRequestFullscreen();
+  } else if (canvasContainer.msRequestFullscreen) { /* IE11 */
+  canvasContainer.msRequestFullscreen();
   }
 }
-btnFullscreen.addEventListener('click', goFullscreen)
+btnFullscreen.addEventListener('click', goFullscreen);
+
+if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+  console.log("Користувач використовує телефон або планшет");
+
+} else {
+  console.log("Користувач використовує комп'ютер");
+}
+
 function openModal() {
   modal.classList.add('active');
   animateElement.beginElement();
@@ -243,21 +253,7 @@ const checkCollision = () => {
 // const grid = new Grid();
 
 const animation = () => {
-  const scaleFactor = 0.5;
-  
   canvas.height = canvas.height;
-//   canvas.width = 1000; // Задає внутрішню ширину канвасу в 1000 пікселів
-// canvas.height = 1000; // Задає внутрішню висоту канвасу в 1000 пікселів
-
-// canvas.style.width = '500px'; // Задає відображену ширину канвасу в 500 пікселів через CSS
-// canvas.style.height = '500px';
-
-  // canvas.height = canvas.height;
-  // canvas.style.height = `${canvas.height/2}px`;
-  // canvas.style.width = `${canvas.width/2}px`;
-  // // ctx.canvas.height = canvas.height * 2;
-  
-  
   const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
   gradient.addColorStop(0, backgroundGradients[randomMap][0]);
   gradient.addColorStop(1, backgroundGradients[randomMap][1]);

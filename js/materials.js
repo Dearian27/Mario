@@ -19,15 +19,15 @@ const randomMap = Math.floor(Math.random() * blocksOffset.length);
 
 
 const audio = {
-  wrong: '../assets/wrong.mp3',
-  right: '../assets/right.mp3',
-  jump: '../assets/jump.mp3',
+  wrong: new Audio('../assets/wrong.mp3'),
+  right: new Audio('../assets/right.mp3'),
+  jump: new Audio('../assets/jump.mp3')
 }
 
-function playSound(src) {
-  const audio = new Audio(src);
-  audio.volume = 0.1;
-  audio.play();
+function playSound(sound) {
+  sound.pause();
+  sound.currentTime = 0;
+  sound.play();
 }
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
