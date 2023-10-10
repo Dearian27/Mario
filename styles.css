@@ -13,7 +13,14 @@ body {
   align-items: center;
   justify-content: center;
 }
+.canvas-container {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 #canvas {
+  overflow: hidden;
 }
 .modal {
   display: none;
@@ -95,7 +102,7 @@ body {
   cursor: pointer;
 }
 .control {
-  /* visibility: hidden; */
+  visibility: hidden;
   position: absolute;
   padding: 0;
   margin: 0;
@@ -120,7 +127,7 @@ body {
   height: 60px;
   width: 60px;
 }
-@media (max-width: 767px) {
+@media (max-width: 900px) {
   .control {
     visibility: visible;
   }

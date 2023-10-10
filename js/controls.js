@@ -29,7 +29,7 @@ const btnLeft = document.querySelector('.left');
 const btnRight = document.querySelector('.right');
 const btnUp = document.querySelector('.up');
 
-window.addEventListener('mousedown', (event) => {
+window.addEventListener('touchstart', (event) => {
   console.log(event.target, btnLeft);
   console.log(event.target === btnLeft);
   switch(event.target) {
@@ -40,7 +40,7 @@ window.addEventListener('mousedown', (event) => {
 });
 
 // Обробник події для відтискання кнопки
-window.addEventListener('mouseup', (event) => {
+window.addEventListener('touchend', (event) => {
   switch(event.target) {
     case btnRight: controls.right = false; btnRight.src = './assets/right.png'; break; //D
     case btnLeft: controls.left = false; btnLeft.src = './assets/left.png'; break; //A

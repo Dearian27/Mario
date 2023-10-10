@@ -6,8 +6,10 @@ const canvasContainer = document.querySelector('.canvas-container');
 
 
 function goFullscreen() {
-  if (canvasContainer.requestFullscreen) {
-    canvasContainer.requestFullscreen();
+  if (canvas.requestFullscreen) {
+    canvas.requestFullscreen();
+  // if (canvasContainer.requestFullscreen) {
+  //   canvasContainer.requestFullscreen();
   } else if (canvasContainer.webkitRequestFullscreen) { /* Safari */
   canvasContainer.webkitRequestFullscreen();
   } else if (canvasContainer.msRequestFullscreen) { /* IE11 */
@@ -117,6 +119,7 @@ function resizeCanvas() {
   canvas.style.overflow = 'hidden';
 }
 window.addEventListener('resize', resizeCanvas);
+window.addEventListener('orientationchange', resizeCanvas);
 
 const player = new Mario(730, 400, 45*1.5, 40*1.5, marioSprites)
 const blocks = [
