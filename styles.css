@@ -110,27 +110,26 @@ body {
   height: 60px;
   width: 60px;
   background-color: transparent;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 .control.left {
   bottom: 20px;
   left: 20px;
+  background: url('./assets/left.png');
 }
 .control.right {
   bottom: 20px;
   left: 100px;
+  background: url('./assets/right.png');
 }
 .control.up {
   bottom: 20px;
   right: 20px;
+  background: url("./assets/up.png");
 }
-.control img {
-  height: 60px;
-  width: 60px;
-  user-select: none;
-  -webkit-user-drag: none;
-}
-@media (max-width: 900px) {
+/* @media (max-width: 900px) {
   .control {
-    visibility: visible;
+    
   }
-}
+} */

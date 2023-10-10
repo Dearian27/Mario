@@ -20,7 +20,7 @@ btnFullscreen.addEventListener('click', goFullscreen);
 
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
   console.log("Користувач використовує телефон або планшет");
-
+  document.querySelectorAll('.control').forEach(el => el.style.visibility = 'visible');
 } else {
   console.log("Користувач використовує комп'ютер");
 }
