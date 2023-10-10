@@ -6,10 +6,10 @@ const canvasContainer = document.querySelector('.canvas-container');
 
 
 function goFullscreen() {
-  if (canvas.requestFullscreen) {
-    canvas.requestFullscreen();
-  // if (canvasContainer.requestFullscreen) {
-  //   canvasContainer.requestFullscreen();
+  // if (canvas.requestFullscreen) {
+  //   canvas.requestFullscreen();
+  if (canvasContainer.requestFullscreen) {
+    canvasContainer.requestFullscreen();
   } else if (canvasContainer.webkitRequestFullscreen) { /* Safari */
   canvasContainer.webkitRequestFullscreen();
   } else if (canvasContainer.msRequestFullscreen) { /* IE11 */
