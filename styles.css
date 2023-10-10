@@ -128,13 +128,12 @@ body {
   right: 20px;
   background: url("./assets/up.png");
 }
-.control img {
+/* .control img {
   height: 60px;
   width: 60px;
   user-select: none;
   -webkit-user-drag: none;
-}
-/* @media (max-width: 900px) {
+} */
 /* @media (max-width: 900px) {
   .control {
     

@@ -25,24 +25,24 @@ window.addEventListener('keyup', (event) => {
 })
 
 
-const btnLeft = document.querySelector('left');
-const btnRight = document.querySelector('right');
-const btnUp = document.querySelector('up');
+const btnLeft = document.querySelector('#left');
+const btnRight = document.querySelector('#right');
+const btnUp = document.querySelector('#up');
 
 window.addEventListener('touchstart', (event) => {
   switch(event.target) {
-    case btnRight: controls.right = true; btnRight.background = 'url("./assets/right_a.png")'; break; //D
-    case btnLeft: controls.left = true; btnLeft.background = 'url("./assets/left_a.png")'; break; //A
-    case btnUp: controls.jump = true; btnUp.background = 'url("./assets/up_a.png")'; break;
+    case btnRight: controls.right = true; btnRight.style.background = "url('./assets/right_a.png')"; break; //D
+    case btnLeft: controls.left = true; btnLeft.style.background = 'url("./assets/left_a.png")'; break; //A
+    case btnUp: controls.jump = true; btnUp.style.background = 'url("./assets/up_a.png")'; break;
   }
 });
 
 // Обробник події для відтискання кнопки
 window.addEventListener('touchend', (event) => {
   switch(event.target) {
-    case btnRight: controls.right = false; btnRight.background = 'url("./assets/right.png")'; break; //D
-    case btnLeft: controls.left = false; btnLeft.background = 'url("./assets/left.png")'; break; //A
-    case btnUp: controls.jump = false; btnUp.background = 'url("./assets/up.png")'; break;
+    case btnRight: controls.right = false; btnRight.style.background = 'url("./assets/right.png")'; break; //D
+    case btnLeft: controls.left = false; btnLeft.style.background = 'url("./assets/left.png")'; break; //A
+    case btnUp: controls.jump = false; btnUp.style.background = 'url("./assets/up.png")'; break;
   }
 });
 
