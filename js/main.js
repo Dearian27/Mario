@@ -1,6 +1,18 @@
 const modal = document.getElementById('myModal');
 const btn = document.getElementById('btn');
 const animateElement = document.getElementById('startAnimation'); // Замініть на ваш ID анімації
+const btnFullscreen = document.getElementById('btnFullscreen');
+function goFullscreen() {
+  if (canvas.requestFullscreen) {
+    console.log('fullscreen')
+    canvas.requestFullscreen();
+  } else if (canvas.webkitRequestFullscreen) { /* Safari */
+    canvas.webkitRequestFullscreen();
+  } else if (canvas.msRequestFullscreen) { /* IE11 */
+    canvas.msRequestFullscreen();
+  }
+}
+btnFullscreen.addEventListener('click', goFullscreen)
 function openModal() {
   modal.classList.add('active');
   animateElement.beginElement();
