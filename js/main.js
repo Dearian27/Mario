@@ -4,7 +4,21 @@ const animateElement = document.getElementById('startAnimation'); // Замін�
 const btnFullscreen = document.getElementById('btnFullscreen');
 const canvasContainer = document.querySelector('.canvas-container');
 
-
+function exitFullscreen() {
+  // document.exitFullscreen();
+  const elementInFullScreen = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement;
+  if (elementInFullScreen) {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+    }
+  }
+}
 function goFullscreen() {
   // if (canvas.requestFullscreen) {
   //   canvas.requestFullscreen();
@@ -231,6 +245,8 @@ const checkCollision = () => {
               currentQuestion++;
               if(currentQuestion === questions.length) {
                 setTimeout(() => {
+                  console.log('exitFullscreen');
+                  exitFullscreen();
                   openModal();
                   player.active = false;
                 },1000)

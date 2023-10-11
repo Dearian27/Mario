@@ -112,6 +112,7 @@ body {
   background-color: transparent;
   user-select: none;
   -webkit-user-drag: none;
+  /* pointer-events: */
 }
 .control.left {
   bottom: 30px;

@@ -35,6 +35,15 @@ btnLeft.classList.remove('active');
 btnUp.classList.add('active');
 btnUp.classList.remove('active');
 
+btnLeft.addEventListener('contextmenu', (event) =>
+  event.preventDefault()
+)
+btnUp.addEventListener('contextmenu', (event) =>
+  event.preventDefault()
+)
+btnRight.addEventListener('contextmenu', (event) =>
+  event.preventDefault()
+)
 
 window.addEventListener('touchstart', (event) => {
   switch(event.target) {
