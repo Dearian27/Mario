@@ -24,6 +24,23 @@ window.addEventListener('keyup', (event) => {
   }
 })
 
+const rotateModal = document.getElementById('rotateModal');
+const orientationCheck = () => {
+  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) &&
+    screen.orientation.type === "portrait-primary" 
+  // && !modal?.classList.contains('active')
+  ) {
+    rotateModal.classList.add('active');
+  } else {
+    rotateModal.classList.remove('active');
+  }
+}
+orientationCheck();
+window.addEventListener('orientationchange', (event) => {
+  orientationCheck();
+})
+
+
 
 const btnLeft = document.querySelector('#left');
 const btnRight = document.querySelector('#right');
@@ -44,6 +61,12 @@ btnUp.addEventListener('contextmenu', (event) =>
 btnRight.addEventListener('contextmenu', (event) =>
   event.preventDefault()
 )
+
+window.onload = () => {
+  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    document.querySelectorAll('.control').forEach(el => el.style.visibility = 'visible');
+  }
+}
 
 window.addEventListener('touchstart', (event) => {
   switch(event.target) {

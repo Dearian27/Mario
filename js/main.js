@@ -32,13 +32,6 @@ function goFullscreen() {
 }
 btnFullscreen.addEventListener('click', goFullscreen);
 
-if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-  // console.log("Користувач використовує телефон або планшет");
-  document.querySelectorAll('.control').forEach(el => el.style.visibility = 'visible');
-} else {
-  // console.log("Користувач використовує комп'ютер");
-}
-
 function openModal() {
   modal.classList.add('active');
   animateElement.beginElement();
@@ -137,10 +130,6 @@ window.addEventListener('orientationchange', resizeCanvas);
 
 const player = new Mario(730, 400, 45*1.5, 40*1.5, marioSprites)
 const blocks = [
-  // new AnimBlock(550, 300, 51, 51, 0, 0, 4, 1, 200),
-  // new AnimBlock(700, 300, 51, 51, 0, 0, 4, 1, 200),
-  // new AnimBlock(850, 300, 51, 51, 0, 0, 4, 1, 200),
-
   new Block(400, 550, 51, 51, 2, 2),
   new Block(1050, 500, 50, 51, 3, 3),
   new Block(400, 500, 50, 50, 0, 0),

@@ -39,6 +39,37 @@ body {
 .modal.active {
   display: flex !important;
 }
+.modal.active .modal-content {
+  animation: fade-in 0.5s;
+}
+.modal.rotate.active img {
+  animation: rotate 4s infinite linear;
+}
+@keyframes rotate {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  5% {
+    transform: rotateZ(-10deg);
+  }
+  10% {
+    transform: rotateZ(10deg);
+  }
+  15% {
+    transform: rotateZ(-10deg);
+  }
+  20% {
+    transform: rotateZ(0deg);
+  }
+}
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 .modal-content {
   position: relative;
   background-color: white;
@@ -89,6 +120,22 @@ body {
   font-size: 48px;
   color: black;
 }
+.rotate .modal-content {
+  box-sizing: border-box;
+  padding: 20px;
+  width: 200px;
+  height: 200px;
+  gap: 10px;
+  text-align: center;
+}
+.rotate img {
+  height: 100px;
+}
+.modal h3 {
+  font-family: 'Montserrat', sans-serif;
+  /* font-size: 48px; */
+  color: black;
+}
 .close {
   color: #aaa;
   float: right;
@@ -112,7 +159,6 @@ body {
   background-color: transparent;
   user-select: none;
   -webkit-user-drag: none;
-  /* pointer-events: */
 }
 .control.left {
   bottom: 30px;
@@ -138,14 +184,3 @@ body {
 .control.up.active {
   background: url('./assets/up_a.png');
 }
-/* .control img {
-  height: 60px;
-  width: 60px;
-  user-select: none;
-  -webkit-user-drag: none;
-} */
-/* @media (max-width: 900px) {
-  .control {
-    
-  }
-} */
