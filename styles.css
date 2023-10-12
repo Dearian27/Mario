@@ -184,3 +184,72 @@ body {
 .control.up.active {
   background: url('./assets/up_a.png');
 }
+
+.bottom-panel {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+}
+.panel-btn {
+  padding: 0;
+  margin: 0;
+  border: none;
+  height: 30px;
+  width: 30px;
+  background-color: transparent;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+#keys {
+  background: url('./assets/keys.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+#fullscreen {
+  background: url('./assets/fullscreen.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+#fullscreen.disabled {
+  background: url('./assets/fullscreen.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  animation: click2 0.5s ease-out;
+}
+#keys.disabled {
+  background: url('./assets/keys.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  animation: click2 0.5s ease-out;
+}
+#keys.active {
+  background: url('./assets/keys_a.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  animation: click 0.5s ease-out;
+}
+#fullscreen.active {
+  background: url('./assets/fullscreen_a.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  animation: click 0.5s ease-out;
+}
+@keyframes click2 {
+  50% {
+    transform: scale(110%);
+  }
+  100% {
+    transform: scale(100%);
+  }
+}
+@keyframes click {
+  50% {
+    transform: scale(110%);
+  }
+  100% {
+    transform: scale(100%);
+  }
+}

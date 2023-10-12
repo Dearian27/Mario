@@ -1,11 +1,12 @@
 const modal = document.getElementById('myModal');
 const btn = document.getElementById('btn');
 const animateElement = document.getElementById('startAnimation'); // Замініть на ваш ID анімації
-const btnFullscreen = document.getElementById('btnFullscreen');
+const btnFullscreen = document.getElementById('fullscreen');
 const canvasContainer = document.querySelector('.canvas-container');
 
 function exitFullscreen() {
-  // document.exitFullscreen();
+  btnFullscreen.classList.add('disabled');
+  btnFullscreen.classList.remove('active');
   const elementInFullScreen = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement;
   if (elementInFullScreen) {
     if (document.exitFullscreen) {
@@ -20,8 +21,8 @@ function exitFullscreen() {
   }
 }
 function goFullscreen() {
-  // if (canvas.requestFullscreen) {
-  //   canvas.requestFullscreen();
+  btnFullscreen.classList.remove('disabled');
+  btnFullscreen.classList.add('active');
   if (canvasContainer.requestFullscreen) {
     canvasContainer.requestFullscreen();
   } else if (canvasContainer.webkitRequestFullscreen) { /* Safari */
@@ -30,7 +31,12 @@ function goFullscreen() {
   canvasContainer.msRequestFullscreen();
   }
 }
-btnFullscreen.addEventListener('click', goFullscreen);
+btnFullscreen.addEventListener('click', () => {
+  if(btnFullscreen.classList.contains('active')) {
+    exitFullscreen();
+  } else
+  goFullscreen();
+});
 
 function openModal() {
   modal.classList.add('active');
@@ -112,16 +118,14 @@ function resizeCanvas() {
   else if(window.innerHeight < 450) {
     scale = 2;
   }
-  else if(window.innerHeight < 670 
-    // || (screen.orientation === 'album' && window.innerHeight < 768)
-    ) {
+  else if(window.innerHeight < 670) {
     scale = 1.5;
   }
   const screenWidth = window.innerWidth * scale;
   const screenHeight = window.innerHeight * scale;
 
-  canvas.width = screenWidth-5;
-  canvas.height = screenHeight-5;
+  canvas.width = screenWidth;
+  canvas.height = screenHeight;
   // canvas.style.transform = 'scale(0.5)';
   canvas.style.overflow = 'hidden';
 }
@@ -223,7 +227,7 @@ const checkCollision = () => {
                 currentQuestion = 0;
                 init();
               }, 3000);
-              setTimeout(() => player.active = true, 3500);
+              // setTimeout(() => player.active = true, 3500);
             } else if(!checked) {
               text.text = questions[currentQuestion].answer;
               playSound(audio.right);

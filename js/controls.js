@@ -26,9 +26,9 @@ window.addEventListener('keyup', (event) => {
 
 const rotateModal = document.getElementById('rotateModal');
 const orientationCheck = () => {
-  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) &&
+  if (
+    // /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Tablet/i.test(navigator.userAgent) &&
     screen.orientation.type === "portrait-primary" 
-  // && !modal?.classList.contains('active')
   ) {
     rotateModal.classList.add('active');
   } else {
@@ -41,6 +41,20 @@ window.addEventListener('orientationchange', (event) => {
 })
 
 
+const btnKeys = document.getElementById('keys');
+btnKeys.classList.add('active');
+btnKeys.classList.remove('active');
+btnKeys.addEventListener('click', (event) => { 
+  if(btnKeys.classList.contains('active')) {
+    btnKeys.classList.remove('active');
+    btnKeys.classList.add('disabled');
+    document.querySelectorAll('.control').forEach(el => el.style.visibility = 'hidden');
+  } else {
+    btnKeys.classList.remove('disabled');
+    btnKeys.classList.add('active');
+    document.querySelectorAll('.control').forEach(el => el.style.visibility = 'visible');
+  }
+})
 
 const btnLeft = document.querySelector('#left');
 const btnRight = document.querySelector('#right');
@@ -63,7 +77,11 @@ btnRight.addEventListener('contextmenu', (event) =>
 )
 
 window.onload = () => {
-  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+  if (
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+    ||
+    window.innerWidth < 1050
+    ) {
     document.querySelectorAll('.control').forEach(el => el.style.visibility = 'visible');
   }
 }

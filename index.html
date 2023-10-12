@@ -7,10 +7,14 @@
   <title>Mario</title>
 </head>
 <body>
-  <button style="position: absolute; z-index: 5; bottom: 110px; right: 40px; border: none; height: 30px; width: 30px;" id="btnFullscreen">
+  <!-- <button style="position: absolute; z-index: 5; bottom: 110px; right: 40px; border: none; height: 30px; width: 30px;" id="btnFullscreen">
     <img style="height: 30px; width: 30px;" src="./assets/fullscreen.png" alt="solution fullscreen button">
-  </button>
+  </button> -->
   <div style="position: relative;" class="canvas-container">
+    <div class="bottom-panel">
+      <button id="fullscreen" class="panel-btn fullscreen"></button>
+      <button id="keys" class="panel-btn keys"></button>
+    </div>
     <button id="left" class="control left"></button>
     <button id="right" class="control right"></button>
     <button id="up" class="control up"></button>
