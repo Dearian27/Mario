@@ -149,7 +149,8 @@ body {
   cursor: pointer;
 }
 .control {
-  visibility: hidden;
+  /* visibility: hidden; */
+  visibility: visible !important;
   position: absolute;
   padding: 0;
   margin: 0;
