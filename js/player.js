@@ -41,8 +41,17 @@ class Mario {
       }
   }
   animation() {
-    if(!this.isGrounded) {
+    if(!this.active) {
+      this.checkAnimation('confused', 3);
+      if(this.currentAnim !== 'confused') {
+        this.frame = 0;
+      }
+      this.frameAnim(4, 4, false)
+    } else if(!this.isGrounded) {
       this.checkAnimation('jump', 2);
+      if(this.currentAnim !== 'jump') {
+        this.frame = 0;
+      }
       this.frameAnim(3, 4, false)
     } else {
       if(this.velocity.x !== 0) {
@@ -69,11 +78,8 @@ class Mario {
         playSound(audio.jump);
         this.velocity.y = -11;
       }
-      this.animation();
-    } else {
-      this.frame = 3;
-      this.row = 3;
-    }   
+    }
+    this.animation();   
     this.velocity.y = (this.velocity.y * 10 + 3)/ 10; // gravity
     this.y += this.velocity.y;
     this.x += this.velocity.x;

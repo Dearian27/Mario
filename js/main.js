@@ -236,21 +236,22 @@ const checkCollision = () => {
                 block.checked = true;
               })
               currentQuestion++;
-              if(currentQuestion === questions.length) {
+              if(currentQuestion >= questions.length) {
                 setTimeout(() => {
-                  console.log('exitFullscreen');
                   exitFullscreen();
                   openModal();
                   player.active = false;
-                },1000)
-              }
-              setTimeout(() => {
-                if(currentQuestion !== questions.length) {
-                  init();
-                }else {
                   currentQuestion = 0;
-                }
-              }, 3000)
+                },1000)
+              } else {
+                setTimeout(() => {
+                  if(currentQuestion !== questions.length) {
+                    init();
+                  }else {
+                    currentQuestion = 0;
+                  }
+                }, 3000)
+              }
             }
           }
         }
