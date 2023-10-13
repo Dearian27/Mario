@@ -66,6 +66,9 @@ btnLeft.classList.remove('active');
 btnUp.classList.add('active');
 btnUp.classList.remove('active');
 
+console.log(btnRight, btnUp);
+
+
 btnLeft.addEventListener('contextmenu', (event) =>
   event.preventDefault()
 )
@@ -86,7 +89,8 @@ window.onload = () => {
   }
 }
 
-window.addEventListener('touchstart', (event) => {
+window.addEventListener('mousedown', (event) => {
+  console.log(event.target);
   switch(event.target) {
     case btnRight: controls.right = true; btnRight.classList.add('active'); break; //D
     case btnLeft: controls.left = true; btnLeft.classList.add('active'); break; //A
@@ -95,7 +99,7 @@ window.addEventListener('touchstart', (event) => {
 });
 
 // Обробник події для відтискання кнопки
-window.addEventListener('touchend', (event) => {
+window.addEventListener('mouseup', (event) => {
   switch(event.target) {
     case btnRight: controls.right = false; btnRight.classList.remove('active'); break; //D
     case btnLeft: controls.left = false; btnLeft.classList.remove('active');; break; //A
