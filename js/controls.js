@@ -28,7 +28,8 @@ const rotateModal = document.getElementById('rotateModal');
 const orientationCheck = () => {
   if (
     // /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Tablet/i.test(navigator.userAgent) &&
-    screen.orientation.type === "portrait-primary" 
+    // screen.orientation.type === "portrait-primary" 
+    window.innerWidth > window.innerHeight
   ) {
     rotateModal.classList.add('active');
   } else {
