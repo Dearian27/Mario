@@ -126,8 +126,9 @@ function resizeCanvas() {
 
   canvas.width = screenWidth;
   canvas.height = screenHeight;
-  // canvas.style.transform = 'scale(0.5)';
   canvas.style.overflow = 'hidden';
+
+  orientationCheck();
 }
 window.addEventListener('resize', resizeCanvas);
 window.addEventListener('orientationchange', resizeCanvas);
@@ -227,7 +228,6 @@ const checkCollision = () => {
                 currentQuestion = 0;
                 init();
               }, 3000);
-              // setTimeout(() => player.active = true, 3500);
             } else if(!checked) {
               text.text = questions[currentQuestion].answer;
               playSound(audio.right);

@@ -37,9 +37,9 @@ const orientationCheck = () => {
   }
 }
 orientationCheck();
-window.addEventListener('orientationchange', (event) => {
-  orientationCheck();
-})
+// window.addEventListener('orientationchange', (event) => {
+//   orientationCheck();
+// })
 
 let logs = ['keysVis: false; ', 'touch: false; ', 'mouse: false; ', 'wasTouch: false; ', 'wasMouse: false; ' , 0];
 const logHTML = document.getElementById('logs');
