@@ -89,7 +89,7 @@ let questions = [
     question: 'Sam isn\'t ___ English at the moment.',
     answer: 'Sam isn\'t learning English at the moment.',
     variants: [
-      {isRight: true, text: 'learing'},
+      {isRight: true, text: 'learning'},
       {isRight: false, text: 'learns'},
     ]
   },
