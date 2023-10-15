@@ -42,7 +42,7 @@ body {
 .modal.active .modal-content {
   animation: fade-in 0.5s;
 }
-.modal.rotate.active img {
+.modal.rotate.active .phone {
   animation: rotate 4s infinite linear;
 }
 @keyframes rotate {
@@ -128,8 +128,14 @@ body {
   gap: 10px;
   text-align: center;
 }
-.rotate img {
+.rotate .phone {
   height: 100px;
+}
+.rotate .cross {
+  height: 20px;
+  position: absolute;
+  right: 5px;
+  top: 5px;
 }
 .modal h3 {
   font-family: 'Montserrat', sans-serif;

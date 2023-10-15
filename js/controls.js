@@ -24,12 +24,16 @@ window.addEventListener('keyup', (event) => {
   }
 })
 
+const crossBtn = document.querySelector('.cross');
+crossBtn.addEventListener('click', () => {
+  rotateModal.classList.remove('active');
+  crossBtn.classList.add('active');
+})
 const rotateModal = document.getElementById('rotateModal');
 const orientationCheck = () => {
   if (
-    // /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Tablet/i.test(navigator.userAgent) &&
-    // screen.orientation.type === "portrait-primary" 
-    window.innerWidth < window.innerHeight
+    window.innerWidth < window.innerHeight &&
+    !crossBtn.classList.contains('active')
   ) {
     rotateModal.classList.add('active');
   } else {
@@ -43,7 +47,7 @@ orientationCheck();
 
 let logs = ['keysVis: false; ', 'touch: false; ', 'mouse: false; ', 'wasTouch: false; ', 'wasMouse: false; ' , 0];
 const logHTML = document.getElementById('logs');
-logHTML.innerHTML = logs.join('\n');
+// logHTML.innerHTML = logs.join('\n');
 
 const btnKeys = document.getElementById('keys');
 btnKeys.classList.add('active');
@@ -66,7 +70,7 @@ btnKeys.addEventListener('click', (event) => {
   } else {
     logs[0] = 'keysVis: false; ';
   }
-  logHTML.innerHTML = logs.join('\n');
+  // logHTML.innerHTML = logs.join('\n');
 })
 
 const btnLeft = document.querySelector('#left');
@@ -101,10 +105,10 @@ window.onload = () => {
       
       if(document.querySelector('.control').style.visibility === 'visible') {
         logs[0] = 'keysVis: true; ';
-        logHTML.innerHTML = logs.join('\n');
+        // logHTML.innerHTML = logs.join('\n');
       } else {
         logs[0] = 'keysVis: true; ';
-        logHTML.innerHTML = logs.join('\n');
+        // logHTML.innerHTML = logs.join('\n');
       }
   }
 }
@@ -114,7 +118,7 @@ window.addEventListener('touchstart', (event) => {
   if(event.target === btnRight || event.target === btnUp || event.target === btnLeft) {  
     logs[1] = 'touchstart: true; ';
     logs[3] = 'wasTouch: true; ';
-    logHTML.innerHTML = logs.join('\n');
+    // logHTML.innerHTML = logs.join('\n');
   }
   switch(event.target) {
     case btnRight: controls.right = true; btnRight.classList.add('active'); break; //D
@@ -126,7 +130,7 @@ window.addEventListener('touchstart', (event) => {
 window.addEventListener('touchend', (event) => {
   if(event.target === btnRight || event.target === btnUp || event.target === btnLeft) {
     logs[1] = 'touch: false; ';
-    logHTML.innerHTML = logs.join('\n');
+    // logHTML.innerHTML = logs.join('\n');
   }
   
   switch(event.target) {
@@ -141,7 +145,7 @@ window.addEventListener('mousedown', (event) => {
   if(event.target === btnRight || event.target === btnUp || event.target === btnLeft) {
     logs[2] = 'mouse: true; ';
     logs[4] = 'wasMouse: true; ';
-    logHTML.innerHTML = logs.join('\n');
+    // logHTML.innerHTML = logs.join('\n');
   }
 
   switch(event.target) {
@@ -154,7 +158,7 @@ window.addEventListener('mousedown', (event) => {
 window.addEventListener('mouseup', (event) => {
   if(event.target === btnRight || event.target === btnUp || event.target === btnLeft) {
     logs[2] = 'mouse: false; ';
-    logHTML.innerHTML = logs.join('\n');
+    // logHTML.innerHTML = logs.join('\n');
   }
 
   switch(event.target) {
