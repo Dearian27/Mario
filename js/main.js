@@ -1,13 +1,19 @@
-const modal = document.getElementById('myModal');
-const btn = document.getElementById('btn');
-const animateElement = document.getElementById('startAnimation'); // Замініть на ваш ID анімації
-const btnFullscreen = document.getElementById('fullscreen');
-const canvasContainer = document.querySelector('.canvas-container');
+const modal = document.getElementById("myModal");
+const btn = document.getElementById("btn");
+const animateElement = document.getElementById("startAnimation"); // Замініть на ваш ID анімації
+const btnFullscreen = document.getElementById("fullscreen");
+const canvasContainer = document.querySelector(".canvas-container");
+let gameIsStarted = false;
 
+let questions = [];
 function exitFullscreen() {
-  btnFullscreen.classList.add('disabled');
-  btnFullscreen.classList.remove('active');
-  const elementInFullScreen = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement;
+  btnFullscreen.classList.add("disabled");
+  btnFullscreen.classList.remove("active");
+  const elementInFullScreen =
+    document.fullscreenElement ||
+    document.webkitFullscreenElement ||
+    document.mozFullScreenElement ||
+    document.msFullscreenElement;
   if (elementInFullScreen) {
     if (document.exitFullscreen) {
       document.exitFullscreen();
@@ -16,95 +22,57 @@ function exitFullscreen() {
     } else if (document.mozCancelFullScreen) {
       document.mozCancelFullScreen();
     } else if (document.msExitFullscreen) {
-        document.msExitFullscreen();
+      document.msExitFullscreen();
     }
   }
 }
 function goFullscreen() {
-  btnFullscreen.classList.remove('disabled');
-  btnFullscreen.classList.add('active');
+  btnFullscreen.classList.remove("disabled");
+  btnFullscreen.classList.add("active");
   if (canvasContainer.requestFullscreen) {
     canvasContainer.requestFullscreen();
-  } else if (canvasContainer.webkitRequestFullscreen) { /* Safari */
-  canvasContainer.webkitRequestFullscreen();
-  } else if (canvasContainer.msRequestFullscreen) { /* IE11 */
-  canvasContainer.msRequestFullscreen();
+  } else if (canvasContainer.webkitRequestFullscreen) {
+    /* Safari */
+    canvasContainer.webkitRequestFullscreen();
+  } else if (canvasContainer.msRequestFullscreen) {
+    /* IE11 */
+    canvasContainer.msRequestFullscreen();
   }
 }
-btnFullscreen.addEventListener('click', () => {
-  if(btnFullscreen.classList.contains('active')) {
+btnFullscreen.addEventListener("click", () => {
+  if (btnFullscreen.classList.contains("active")) {
     exitFullscreen();
-  } else
-  goFullscreen();
+  } else goFullscreen();
 });
 
 function openModal() {
-  modal.classList.add('active');
+  modal.classList.add("active");
   animateElement.beginElement();
+  window.top.postMessage({ status: "success" }, "*");
 }
 function closeModal() {
-  modal.classList.remove('active');
+  modal.classList.remove("active");
 }
-btn.addEventListener('click', () => {closeModal();shuffle();init()});
+btn.addEventListener("click", () => {
+  closeModal();
+  shuffle();
+  init();
+});
 
 const marioSprites = new Image();
-marioSprites.src = '../assets/mario2.svg';
+marioSprites.src = "../assets/mario2.svg";
 
-let questions = [
-  {
-    question: 'She ___ cooking now.',
-    answer: 'She is cooking now.',
-    variants: [
-      {isRight: true, text: 'is'},
-      {isRight: false, text: 'are'},
-      {isRight: false, text: 'am'},
-    ]
-  },
-  {
-    question: '___ they playing the piano at the moment?',
-    answer: 'Are they playing the piano at the moment?',
-    variants: [
-      {isRight: false, text: 'is'},
-      {isRight: false, text: 'am'},
-      {isRight: true, text: 'are'},
-    ]
-  },
-  {
-    question: 'Mary and Jack are not ___ now.',
-    answer: 'Mary and Jack are not talking now.',
-    variants: [
-      {isRight: true, text: 'talking'},
-      {isRight: false, text: 'talks'},
-    ]
-  },
-  {
-    question: '___ we ___ exercises at the moment?',
-    answer: 'Are we doing exercises at the moment?',
-    variants: [
-      {isRight: true, text: 'are/doing'},
-      {isRight: false, text: 'are/do'},
-    ]
-  },
-  {
-    question: 'Sam isn\'t ___ English at the moment.',
-    answer: 'Sam isn\'t learning English at the moment.',
-    variants: [
-      {isRight: true, text: 'learning'},
-      {isRight: false, text: 'learns'},
-    ]
-  },
-]
 const shuffle = () => {
   questions = shuffleArray(questions);
-  questions.forEach(question => {
+  questions.forEach((question) => {
     question.variants = shuffleArray(question.variants);
   });
-}
+};
 shuffle();
 let currentQuestion = 0;
 
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
 ctx.imageSmoothingEnabled = false;
 ctx.msImageSmoothingEnabled = false;
 ctx.webkitImageSmoothingEnabled = false;
@@ -112,13 +80,11 @@ ctx.mozImageSmoothingEnabled = false;
 
 function resizeCanvas() {
   let scale = 1;
-  if(window.innerHeight < 320) {
+  if (window.innerHeight < 320) {
     scale = 3;
-  }
-  else if(window.innerHeight < 450) {
+  } else if (window.innerHeight < 450) {
     scale = 2;
-  }
-  else if(window.innerHeight < 670) {
+  } else if (window.innerHeight < 670) {
     scale = 1.5;
   }
   const screenWidth = window.innerWidth * scale;
@@ -126,14 +92,14 @@ function resizeCanvas() {
 
   canvas.width = screenWidth;
   canvas.height = screenHeight;
-  canvas.style.overflow = 'hidden';
+  canvas.style.overflow = "hidden";
 
   orientationCheck();
 }
-window.addEventListener('resize', resizeCanvas);
-window.addEventListener('orientationchange', resizeCanvas);
+window.addEventListener("resize", resizeCanvas);
+window.addEventListener("orientationchange", resizeCanvas);
 
-const player = new Mario(730, 400, 45*1.5, 40*1.5, marioSprites)
+const player = new Mario(730, 400, 45 * 1.5, 40 * 1.5, marioSprites);
 const blocks = [
   new Block(400, 550, 51, 51, 2, 2),
   new Block(1050, 500, 50, 51, 3, 3),
@@ -152,36 +118,76 @@ const blocks = [
 
   new Block(350, 500, 50, 50, 2, 3),
   new Block(1000, 500, 50, 50, 0, 0),
-]
+];
 const backgrounds = [
-  new BackBlocks(450, 550, 50, 50, 2, 1, 11),  
+  new BackBlocks(450, 550, 50, 50, 2, 1, 11),
   new Background(1000, 550, 51, 51, 3, 2),
-]
-let text, progress, answerBlocks = [0, 0], answersMessages = [0, 0], bricks = [];
+];
+let text,
+  progress,
+  answerBlocks = [0, 0],
+  answersMessages = [0, 0],
+  bricks = [];
 
 const init = () => {
+  if (!gameIsStarted) return;
   player.active = true;
-  answerBlocks = [0, 0], answersMessages = [0, 0], bricks = [];
+  (answerBlocks = [0, 0]), (answersMessages = [0, 0]), (bricks = []);
 
   let arr = new Array(questions[currentQuestion].variants.length);
-  for(let i = 0; i < arr.length; i++) {
-    answerBlocks[i] = new AnswerBlock(i, answerLayout[arr.length][i], 300, 51, 51, 0, 0, 4, 0, 32, questions[currentQuestion].variants[i].isRight); 
-    answersMessages[i] = new Message(i, answerBlocks[i].x, answerBlocks[i].y-100, 100, 50, questions[currentQuestion].variants[i].text, 20, 'black', 'white', 10);
+  for (let i = 0; i < arr.length; i++) {
+    answerBlocks[i] = new AnswerBlock(
+      i,
+      answerLayout[arr.length][i],
+      300,
+      51,
+      51,
+      0,
+      0,
+      4,
+      0,
+      32,
+      questions[currentQuestion].variants[i].isRight
+    );
+    answersMessages[i] = new Message(
+      i,
+      answerBlocks[i].x,
+      answerBlocks[i].y - 100,
+      100,
+      50,
+      questions[currentQuestion].variants[i].text,
+      20,
+      "black",
+      "white",
+      10
+    );
   }
-  for(let i = 500; i <= 900; i+=50) {
-    if(!answerLayout[arr.length].includes(i)) {
+  for (let i = 500; i <= 900; i += 50) {
+    if (!answerLayout[arr.length].includes(i)) {
       bricks.push(new AnimBlock(i, 300, 51, 51, 0, 0, 4, 1, 200));
     }
   }
   text = new Sentence(questions[currentQuestion].question, 0, 50);
-  progress = new Sentence(`${currentQuestion+1}/${questions.length}`, 0, 50, 'right');
-}
-init();
+  progress = new Sentence(
+    `${currentQuestion + 1}/${questions.length}`,
+    0,
+    50,
+    "right"
+  );
+};
+
+const startGame = (data) => {
+  questions = data;
+  init();
+};
 
 const checkCollision = () => {
   let isGrounded = false;
-  const colliders = answerBlocks.length && bricks.length ? [...answerBlocks, ...bricks, ...blocks] : [...blocks];
-  colliders.forEach(block => {
+  const colliders =
+    answerBlocks.length && bricks.length
+      ? [...answerBlocks, ...bricks, ...blocks]
+      : [...blocks];
+  colliders.forEach((block) => {
     const blockLeft = block.x - block.width / 2;
     const blockRight = block.x + block.width / 2;
     const blockTop = block.y - block.height / 2;
@@ -197,8 +203,14 @@ const checkCollision = () => {
       playerBottom >= blockTop &&
       playerTop <= blockBottom
     ) {
-      const overlapX = Math.min(playerRight - blockLeft, blockRight - playerLeft);
-      const overlapY = Math.min(playerBottom - blockTop, blockBottom - playerTop);
+      const overlapX = Math.min(
+        playerRight - blockLeft,
+        blockRight - playerLeft
+      );
+      const overlapY = Math.min(
+        playerBottom - blockTop,
+        blockBottom - playerTop
+      );
 
       if (overlapX <= overlapY) {
         if (player.x < block.x) {
@@ -213,14 +225,14 @@ const checkCollision = () => {
           player.velocity.y = 0;
           player.y = blockTop - player.height / 2;
           isGrounded = true;
-        } else if(player.velocity.y < 0 && player.y > block.y) {
+        } else if (player.velocity.y < 0 && player.y > block.y) {
           player.velocity.y = 0;
           player.y = blockBottom + player.height / 2;
-          if(block.type === 'answer') {
+          if (block.type === "answer") {
             let checked = block.checked;
             block.check();
-            if(!block.isRight && !checked) {
-              answersMessages[block.id].style = 'wrong';
+            if (!block.isRight && !checked) {
+              answersMessages[block.id].style = "wrong";
               playSound(audio.wrong);
               player.active = false;
               shuffle();
@@ -228,29 +240,29 @@ const checkCollision = () => {
                 currentQuestion = 0;
                 init();
               }, 3000);
-            } else if(!checked) {
+            } else if (!checked) {
               text.text = questions[currentQuestion].answer;
               playSound(audio.right);
-              answersMessages[block.id].style = 'right';
-              answerBlocks.forEach(block => {
+              answersMessages[block.id].style = "right";
+              answerBlocks.forEach((block) => {
                 block.checked = true;
-              })
+              });
               currentQuestion++;
-              if(currentQuestion >= questions.length) {
+              if (currentQuestion >= questions.length) {
                 setTimeout(() => {
                   exitFullscreen();
                   openModal();
                   player.active = false;
                   currentQuestion = 0;
-                },1000)
+                }, 1000);
               } else {
                 setTimeout(() => {
-                  if(currentQuestion !== questions.length) {
+                  if (currentQuestion !== questions.length) {
                     init();
-                  }else {
+                  } else {
                     currentQuestion = 0;
                   }
-                }, 3000)
+                }, 3000);
               }
             }
           }
@@ -258,10 +270,10 @@ const checkCollision = () => {
       }
     }
   });
-  if(isGrounded) {
+  if (isGrounded) {
     player.isGrounded = true;
   } else player.isGrounded = false;
-}
+};
 
 // const grid = new Grid();
 
@@ -272,39 +284,45 @@ const animation = () => {
   gradient.addColorStop(1, backgroundGradients[randomMap][1]);
   ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
-  
+
   ctx.save();
-  ctx.translate(Math.round(-player.x + canvas.width/2), Math.round(-player.y + canvas.height/2));
-  checkCollision();
-  blocks.forEach(block => {
-    block.draw(ctx);
-  });
-  bricks.forEach(block => {
-    block.draw(ctx);
-  });
-  backgrounds.forEach(block => {
-    block.draw(ctx);
-  });
-  player.update();
-  player.draw(ctx);
-  
-  answerBlocks.forEach(block => block.draw(ctx));
-  answersMessages.forEach(message => message.draw(ctx)); //
-  
-  ctx.restore();
-  text.draw(ctx);
-  progress.draw(ctx);
+  ctx.translate(
+    Math.round(-player.x + canvas.width / 2),
+    Math.round(-player.y + canvas.height / 2)
+  );
+  if (gameIsStarted) {
+    checkCollision();
+    blocks.forEach((block) => {
+      block.draw(ctx);
+    });
+    bricks.forEach((block) => {
+      block.draw(ctx);
+    });
+    backgrounds.forEach((block) => {
+      block.draw(ctx);
+    });
+    player.update();
+    player.draw(ctx);
+
+    answerBlocks.forEach((block) => block.draw(ctx));
+    answersMessages.forEach((message) => message.draw(ctx)); //
+
+    ctx.restore();
+    text.draw(ctx);
+    progress.draw(ctx);
+  }
 
   // ctx.scale(scaleFactor, scaleFactor);
-  requestAnimationFrame(animation)
-}
-window.addEventListener('load', () => {
+  requestAnimationFrame(animation);
+};
+
+window.addEventListener("load", () => {
   resizeCanvas();
   animation();
   blocks.push(
     new Block(300, 150, canvas.height * 3, 50, -1),
     new Block(1100, 150, canvas.height * 3, 50, -1),
     new Block(350, 50, 50, canvas.width * 3, -1),
-    new Block(300, 600, 50, canvas.width * 3, -1),
-  )
+    new Block(300, 600, 50, canvas.width * 3, -1)
+  );
 });
