@@ -241,7 +241,7 @@ const checkCollision = () => {
                 init();
               }, 3000);
             } else if (!checked) {
-              text.text = questions[currentQuestion].answer;
+              // text.text = questions[currentQuestion].answer;
               playSound(audio.right);
               answersMessages[block.id].style = "right";
               answerBlocks.forEach((block) => {
