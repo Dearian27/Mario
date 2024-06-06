@@ -7,7 +7,19 @@ window.addEventListener("message", (e) => {
   }
   if (!gameIsStarted) {
     gameIsStarted = true;
-    const data = e.data;
+    let data = e.data;
+    data = data.map((question) => {
+      let rightVariant = question.variants.find(
+        (variant) => variant.isRight === true
+      );
+      let limitedVariants = question.variants.filter(
+        (variant) => !variant.isRight
+      );
+      if (limitedVariants.length > 2) {
+        limitedVariants = limitedVariants.slice(0, 2);
+      }
+      return { ...question, variants: [...limitedVariants, rightVariant] };
+    });
     startGame(data);
   }
 });
