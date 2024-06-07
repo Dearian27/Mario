@@ -251,7 +251,7 @@ const checkCollision = () => {
               if (currentQuestion >= questions.length) {
                 setTimeout(() => {
                   exitFullscreen();
-                  openModal();
+                  // openModal();
                   player.active = false;
                   currentQuestion = 0;
                 }, 1000);
