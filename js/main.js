@@ -48,7 +48,6 @@ btnFullscreen.addEventListener("click", () => {
 function openModal() {
   modal.classList.add("active");
   animateElement.beginElement();
-  window.top.postMessage({ status: "success" }, "*");
 }
 function closeModal() {
   modal.classList.remove("active");
@@ -249,8 +248,11 @@ const checkCollision = () => {
               });
               currentQuestion++;
               if (currentQuestion >= questions.length) {
+                // setTimeout(() => {
+                // }, 500);
                 setTimeout(() => {
                   exitFullscreen();
+                  window.top.postMessage({ status: "success" }, "*");
                   // openModal();
                   player.active = false;
                   currentQuestion = 0;
