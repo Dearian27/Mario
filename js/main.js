@@ -254,7 +254,7 @@ const checkCollision = () => {
                   exitFullscreen();
                   window.top.postMessage({ status: "success" }, "*");
                   // openModal();
-                  player.active = false;
+                  player.active = null;
                   currentQuestion = 0;
                 }, 1000);
               } else {
