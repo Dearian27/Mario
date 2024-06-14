@@ -1,3 +1,11 @@
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
 window.addEventListener("message", (e) => {
   if (
     event.origin !== "http://localhost:3000" ||
@@ -18,7 +26,11 @@ window.addEventListener("message", (e) => {
       if (limitedVariants.length > 2) {
         limitedVariants = limitedVariants.slice(0, 2);
       }
-      return { ...question, variants: [...limitedVariants, rightVariant] };
+
+      return {
+        ...question,
+        variants: [...shuffleArray(limitedVariants), rightVariant],
+      };
     });
     startGame(data);
   }
