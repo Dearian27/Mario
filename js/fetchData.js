@@ -9,7 +9,7 @@ function shuffleArray(array) {
 window.addEventListener("message", (e) => {
   if (
     event.origin !== "http://localhost:3000" ||
-    event.origin.includes("solution-school")
+    event.origin.includes("solution-english-school")
   ) {
     return;
   }
