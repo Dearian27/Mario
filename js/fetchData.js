@@ -9,11 +9,12 @@ function shuffleArray(array) {
 window.addEventListener("message", (e) => {
   if (
     event.origin !== "http://localhost:3000" ||
-    event.origin.includes("solution-english-school")
+    !event.origin.includes("solution-english-school")
   ) {
     return;
   }
   if (!gameIsStarted) {
+    console.log("solution-english-school");
     gameIsStarted = true;
     let data = e.data;
     data = data.map((question) => {
