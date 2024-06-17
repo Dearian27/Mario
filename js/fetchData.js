@@ -7,14 +7,10 @@ function shuffleArray(array) {
 }
 
 window.addEventListener("message", (e) => {
-  if (
-    event.origin !== "http://localhost:3000" ||
-    !event.origin.includes("solution-english-school")
-  ) {
+  if (event.origin !== "https://solution-english-school.vercel.app") {
     return;
   }
   if (!gameIsStarted) {
-    console.log("solution-english-school");
     gameIsStarted = true;
     let data = e.data;
     data = data.map((question) => {
