@@ -26,7 +26,7 @@ window.addEventListener("message", (e) => {
 
       return {
         ...question,
-        variants: [...shuffleArray(limitedVariants), rightVariant],
+        variants: [...shuffleArray([...limitedVariants, rightVariant])],
       };
     });
     startGame(data);
