@@ -10,8 +10,9 @@ window.addEventListener("message", (e) => {
   console.log(event.origin, "solution-school.com.ua");
   console.log(event.origin.includes("solution-school.com.ua"));
   if (
-    event.origin !== "https://solution-english-school.vercel.app" ||
-    !event.origin.includes("solution-school.com.ua")
+    event.origin !== "https://www.solution-school.com.ua "
+    // event.origin !== "https://solution-english-school.vercel.app" ||
+    // !event.origin.includes("solution-school.com.ua")
   ) {
     return;
   }
