@@ -7,7 +7,10 @@ function shuffleArray(array) {
 }
 
 window.addEventListener("message", (e) => {
-  if (event.origin !== "https://solution-english-school.vercel.app") {
+  if (
+    event.origin !== "https://solution-english-school.vercel.app" ||
+    !event.origin.includes("solution-school.com.ua")
+  ) {
     return;
   }
   if (!gameIsStarted) {
